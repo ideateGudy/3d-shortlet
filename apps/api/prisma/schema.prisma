@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum SectionType {
+  PANORAMA
+  PHOTO
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum BlockReason {
+  MAINTENANCE
+  OWNER_STAY
+  OTHER
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(USER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Property {
+  id            String            @id @default(uuid())
+  slug          String            @unique
+  title         String
+  tagLine       String
+  description   String
+  location      String
+  bedrooms      Int               @default(1)
+  bathrooms     Int               @default(1)
+  maxGuests     Int               @default(2)
+  pricePerNight Float
+  cleaningFee   Float             @default(0)
+  minNights     Int               @default(1)
+  maxNights     Int               @default(30)
+  rules         String?
+  isFeatured    Boolean           @default(false)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  sections      PropertySection[]
+  amenities     Amenity[]
+  bookings      Booking[]
+  blockedDates  BlockedDate[]
+}
+
+model Amenity {
+  id         String   @id @default(uuid())
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  name       String
+  icon       String
+}
+
+model PropertySection {
+  id           String      @id @default(uuid())
+  propertyId   String
+  property     Property    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  name         String
+  order        Int         @default(0)
+  type         SectionType @default(PANORAMA)
+  imageUrl     String
+  initialYaw   Float?      @default(0)
+  initialPitch Float?      @default(0)
+  hotspots     Json        @default("[]")
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([propertyId, order])
+}
+
+model Booking {
+  id            String        @id @default(uuid())
+  propertyId    String
+  property      Property      @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  guestName     String
+  guestEmail    String
+  guestPhone    String
+  adults        Int           @default(1)
+  children      Int           @default(0)
+  checkIn       DateTime      @db.Date
+  checkOut      DateTime      @db.Date
+  status        BookingStatus @default(PENDING)
+  totalPrice    Float
+  cleaningFee   Float         @default(0)
+  nights        Int           @default(1)
+  holdExpiresAt DateTime?
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([propertyId, status])
+}
+
+model BlockedDate {
+  id         String      @id @default(uuid())
+  propertyId String
+  property   Property    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  startDate  DateTime    @db.Date
+  endDate    DateTime    @db.Date
+  reason     BlockReason @default(MAINTENANCE)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([propertyId])
+}

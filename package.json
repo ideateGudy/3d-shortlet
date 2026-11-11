@@ -1,0 +1,19 @@
+{
+  "name": "3d-shortlet-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -k -p \"[{name}]\" -n \"api,web\" -c \"cyan,magenta\" \"pnpm --filter api start:dev\" \"pnpm --filter web dev\"",
+    "build": "pnpm --filter @shortlet/shared build && pnpm --filter api build && pnpm --filter web build",
+    "db:migrate": "pnpm --filter api db:migrate",
+    "db:seed": "pnpm --filter api db:seed",
+    "generate:placeholders": "node scripts/generate-placeholders.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "sharp": "^0.33.3",
+    "tsup": "^8.0.2",
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.5"
+  }
+}
