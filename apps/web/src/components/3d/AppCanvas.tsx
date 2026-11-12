@@ -1,21 +1,54 @@
 'use client';
 
 import React, { Suspense, useEffect, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
+import * as THREE from 'three';
 import { CameraDirector } from './CameraDirector';
 import { useCameraStore } from '@/lib/store/useCameraStore';
+import { useThemeStore } from '@/lib/store/useThemeStore';
 import { LandingScene } from './scenes/LandingScene';
 import { GalleryScene } from './scenes/GalleryScene';
 import { ImmersiveScene } from './scenes/ImmersiveScene';
 
+function CanvasBackground() {
+  const { gl, scene } = useThree();
+  const theme = useThemeStore((s) => s.theme);
+
+  useEffect(() => {
+    const bgColor = theme === 'dark' ? '#06080d' : '#e6ecf2';
+    const color = new THREE.Color(bgColor);
+    gl.setClearColor(color, 1);
+    scene.background = color;
+  }, [gl, scene, theme]);
+
+  return null;
+}
+
 function SceneManager() {
   const mode = useCameraStore((state) => state.mode);
+  const theme = useThemeStore((state) => state.theme);
+  const isDark = theme === 'dark';
 
   return (
     <>
-      <ambientLight intensity={0.8} />
-      <directionalLight position={[10, 20, 15]} intensity={1.2} />
-      <pointLight position={[-10, -10, -10]} intensity={0.4} color="#dfb76c" />
+      <CanvasBackground />
+
+      {/* Adaptive ambient lighting */}
+      <ambientLight intensity={isDark ? 0.8 : 1.3} color={isDark ? '#ffffff' : '#f0f4f8'} />
+
+      {/* Primary directional sun/moonlight */}
+      <directionalLight
+        position={isDark ? [10, 20, 15] : [12, 28, 14]}
+        intensity={isDark ? 1.2 : 2.2}
+        color={isDark ? '#ffffff' : '#fff8ed'}
+      />
+
+      {/* Subtle warm accent ground light */}
+      <pointLight
+        position={[-10, -5, -10]}
+        intensity={isDark ? 0.4 : 0.6}
+        color={isDark ? '#dfb76c' : '#ffd17a'}
+      />
 
       {mode === 'LANDING' && <LandingScene />}
       {mode === 'GALLERY' && <GalleryScene />}
@@ -27,6 +60,7 @@ function SceneManager() {
 export function AppCanvas() {
   const [hasWebGL, setHasWebGL] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const theme = useThemeStore((s) => s.theme);
 
   useEffect(() => {
     setMounted(true);
@@ -50,12 +84,12 @@ export function AppCanvas() {
   }, []);
 
   if (!mounted) {
-    return <div className="fixed inset-0 z-0 bg-[#06080d]" />;
+    return <div className="fixed inset-0 z-0 bg-[var(--bg-primary)] transition-colors duration-300" />;
   }
 
   if (!hasWebGL) {
     return (
-      <div className="fixed inset-0 z-0 bg-[#06080d] flex items-center justify-center text-white/60">
+      <div className="fixed inset-0 z-0 bg-[var(--bg-primary)] flex items-center justify-center text-[var(--text-muted)] transition-colors duration-300">
         <p>WebGL is not supported on this device. 2D fallback mode active.</p>
       </div>
     );

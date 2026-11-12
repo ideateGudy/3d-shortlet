@@ -28,7 +28,7 @@ export function SectionRail({ sections, activeIndex, onSelect }: SectionRailProp
               className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all cursor-pointer ${
                 isActive
                   ? 'bg-brand-gold text-black font-bold shadow-glow scale-105'
-                  : 'bg-white/5 hover:bg-white/15 text-white/70 hover:text-white'
+                  : 'bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/15 text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             >
               <span
@@ -38,7 +38,7 @@ export function SectionRail({ sections, activeIndex, onSelect }: SectionRailProp
               />
               <span>{section.name}</span>
               {section.type === 'PANORAMA' && (
-                <span className={`text-[9px] ${isActive ? 'text-black/60' : 'text-white/40'}`}>
+                <span className={`text-[9px] ${isActive ? 'text-black/60' : 'text-[var(--text-muted)]'}`}>
                   360°
                 </span>
               )}

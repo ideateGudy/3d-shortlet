@@ -67,7 +67,7 @@ export function ScrollJourneyOverlay() {
       {/* Fixed Sticky HUD Overlay */}
       <div className="fixed inset-0 pointer-events-none flex flex-col justify-between p-8 sm:p-12 z-20">
         {/* Top Progress Meter */}
-        <div className="flex items-center justify-between text-xs tracking-widest text-white/50 border-b border-white/10 pb-3">
+        <div className="flex items-center justify-between text-xs tracking-widest text-[var(--text-muted)] border-b border-black/10 dark:border-white/10 pb-3">
           <div className="flex items-center gap-3">
             <span className="text-brand-gold font-mono font-bold">
               {String(scrollPercent).padStart(2, '0')}%
@@ -79,7 +79,7 @@ export function ScrollJourneyOverlay() {
               <span
                 key={c.id}
                 className={`transition-colors ${
-                  activeChapterIndex === i ? 'text-brand-gold font-bold' : 'text-white/30'
+                  activeChapterIndex === i ? 'text-brand-gold font-bold' : 'text-black/30 dark:text-white/30'
                 }`}
               >
                 {c.tag}
@@ -94,10 +94,10 @@ export function ScrollJourneyOverlay() {
             <span className="text-[11px] font-bold tracking-widest text-brand-gold uppercase">
               {activeChapter.tag}
             </span>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mt-1.5 uppercase font-sans">
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] mt-1.5 uppercase font-sans">
               {activeChapter.title}
             </h1>
-            <p className="text-sm sm:text-base text-white/70 mt-3 leading-relaxed">
+            <p className="text-sm sm:text-base text-[var(--text-secondary)] mt-3 leading-relaxed">
               {activeChapter.subtitle}
             </p>
 
@@ -106,14 +106,14 @@ export function ScrollJourneyOverlay() {
               <div className="mt-6 flex items-center gap-4">
                 <Link
                   href="/properties"
-                  className="px-6 py-3 rounded-full bg-brand-gold text-black text-xs font-bold uppercase tracking-wider hover:bg-white transition-all shadow-glow flex items-center gap-2"
+                  className="px-6 py-3 rounded-full bg-brand-gold text-black text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-glow flex items-center gap-2"
                 >
                   <span>Enter 3D Gallery</span>
                   <span>→</span>
                 </Link>
               </div>
             ) : (
-              <div className="mt-5 flex items-center gap-2 text-[11px] text-white/40 tracking-wider">
+              <div className="mt-5 flex items-center gap-2 text-[11px] text-[var(--text-muted)] tracking-wider">
                 <span className="animate-bounce">↓</span>
                 <span>Scroll to travel through residence</span>
               </div>
@@ -122,7 +122,7 @@ export function ScrollJourneyOverlay() {
         </div>
 
         {/* Bottom Coordinates & Mode info */}
-        <div className="flex items-center justify-between text-[10px] tracking-widest text-white/40 border-t border-white/10 pt-3">
+        <div className="flex items-center justify-between text-[10px] tracking-widest text-[var(--text-muted)] border-t border-black/10 dark:border-white/10 pt-3">
           <span>COORDINATES: 40.7580° N, 73.9855° W</span>
           <span>CAMERA DIRECTOR: ACTIVE SCROLL-SCRUB</span>
         </div>

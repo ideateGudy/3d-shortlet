@@ -77,11 +77,11 @@ export function HotspotMarker({ hotspot, radius = 25, onClick }: HotspotMarkerPr
           onClick={handleClick}
           onFocus={() => setHovered(true)}
           onBlur={() => setHovered(false)}
-          className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 hover:border-brand-gold text-white text-xs font-medium tracking-wide shadow-lg whitespace-nowrap cursor-pointer transition-all"
+          className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel border border-black/10 dark:border-white/20 hover:border-brand-gold text-[var(--text-primary)] text-xs font-medium tracking-wide shadow-lg whitespace-nowrap cursor-pointer transition-all"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-brand-gold group-hover:scale-125 transition-transform" />
           <span>{hotspot.label}</span>
-          <span className="text-white/50 text-[10px]">→</span>
+          <span className="text-[var(--text-secondary)] text-[10px]">→</span>
         </button>
       </Html>
     </group>

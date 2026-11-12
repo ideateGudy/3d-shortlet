@@ -3,9 +3,12 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useThemeStore } from '@/lib/store/useThemeStore';
 
 export function GalleryScene() {
   const groupRef = useRef<THREE.Group>(null);
+  const theme = useThemeStore((s) => s.theme);
+  const isDark = theme === 'dark';
 
   // Floating ambient geometric particles in gallery depth
   const particles = useMemo(() => {
@@ -25,12 +28,18 @@ export function GalleryScene() {
     groupRef.current.rotation.y = Math.sin(t) * 0.05;
   });
 
+  const floorColor = isDark ? '#080a10' : '#e2e8f0';
+
   return (
     <group ref={groupRef}>
-      {/* Dark reflective gallery floor plane */}
+      {/* Reflective gallery floor plane */}
       <mesh position={[0, -1.8, -10]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[60, 60]} />
-        <meshStandardMaterial color="#080a10" roughness={0.2} metalness={0.8} />
+        <meshStandardMaterial
+          color={floorColor}
+          roughness={isDark ? 0.2 : 0.35}
+          metalness={isDark ? 0.8 : 0.2}
+        />
       </mesh>
 
       {/* Floating golden architectural rings in depth */}
@@ -38,9 +47,13 @@ export function GalleryScene() {
         <group key={`ring-${z}`} position={[0, 1.2, z]}>
           <mesh>
             <torusGeometry args={[3.2 + i * 0.8, 0.03, 16, 64]} />
-            <meshBasicMaterial color="#dfb76c" transparent opacity={0.35 - i * 0.08} />
+            <meshBasicMaterial
+              color="#dfb76c"
+              transparent
+              opacity={isDark ? 0.35 - i * 0.08 : 0.25 - i * 0.06}
+            />
           </mesh>
-          <pointLight color="#dfb76c" intensity={0.4} distance={6} />
+          <pointLight color="#dfb76c" intensity={isDark ? 0.4 : 0.6} distance={6} />
         </group>
       ))}
 
@@ -54,7 +67,12 @@ export function GalleryScene() {
             itemSize={3}
           />
         </bufferGeometry>
-        <pointsMaterial size={0.06} color="#dfb76c" transparent opacity={0.5} />
+        <pointsMaterial
+          size={0.06}
+          color="#dfb76c"
+          transparent
+          opacity={isDark ? 0.5 : 0.3}
+        />
       </points>
     </group>
   );

@@ -188,67 +188,67 @@ export default function PropertiesPage() {
             Curated Shortlet Collection
           </span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight uppercase">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-[var(--text-primary)] tracking-tight uppercase">
           Architectural Estates
         </h1>
-        <p className="text-sm sm:text-base text-white/60 mt-2 max-w-2xl">
+        <p className="text-sm sm:text-base text-[var(--text-secondary)] mt-2 max-w-2xl">
           Immersive residences engineered for luxury living. Select any sanctuary below to travel inside and explore in full 3D.
         </p>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="glass-panel rounded-glass-lg p-4 sm:p-6 mb-10 shadow-2xl border border-white/10">
+      <div className="glass-panel rounded-glass-lg p-4 sm:p-6 mb-10 shadow-2xl border border-black/10 dark:border-white/10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
           {/* Search Input */}
           <div className="relative md:col-span-1">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
             <input
               type="text"
               placeholder="Search location or title..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 text-xs focus:outline-none focus:border-brand-gold transition-colors"
+              className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-[var(--text-primary)] placeholder-[var(--text-muted)] text-xs focus:outline-none focus:border-brand-gold transition-colors"
             />
           </div>
 
           {/* Bedrooms Dropdown */}
           <div className="relative">
-            <Bed className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
+            <Bed className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none" />
             <select
               value={bedroomFilter}
               onChange={(e) => setBedroomFilter(Number(e.target.value))}
               aria-label="Filter by bedrooms"
-              className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer"
+              className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-[var(--text-primary)] text-xs focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer"
             >
-              <option value={0} className="bg-black text-white">All Bedrooms</option>
-              <option value={2} className="bg-black text-white">2+ Bedrooms</option>
-              <option value={3} className="bg-black text-white">3+ Bedrooms</option>
-              <option value={4} className="bg-black text-white">4+ Bedrooms</option>
-              <option value={5} className="bg-black text-white">5+ Bedrooms</option>
+              <option value={0} className="bg-white dark:bg-black text-black dark:text-white">All Bedrooms</option>
+              <option value={2} className="bg-white dark:bg-black text-black dark:text-white">2+ Bedrooms</option>
+              <option value={3} className="bg-white dark:bg-black text-black dark:text-white">3+ Bedrooms</option>
+              <option value={4} className="bg-white dark:bg-black text-black dark:text-white">4+ Bedrooms</option>
+              <option value={5} className="bg-white dark:bg-black text-black dark:text-white">5+ Bedrooms</option>
             </select>
           </div>
 
           {/* Guests Dropdown */}
           <div className="relative">
-            <Users className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
+            <Users className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none" />
             <select
               value={guestFilter}
               onChange={(e) => setGuestFilter(Number(e.target.value))}
               aria-label="Filter by guests"
-              className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer"
+              className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-[var(--text-primary)] text-xs focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer"
             >
-              <option value={0} className="bg-black text-white">All Guests</option>
-              <option value={2} className="bg-black text-white">2+ Guests</option>
-              <option value={4} className="bg-black text-white">4+ Guests</option>
-              <option value={6} className="bg-black text-white">6+ Guests</option>
-              <option value={8} className="bg-black text-white">8+ Guests</option>
-              <option value={10} className="bg-black text-white">10+ Guests</option>
+              <option value={0} className="bg-white dark:bg-black text-black dark:text-white">All Guests</option>
+              <option value={2} className="bg-white dark:bg-black text-black dark:text-white">2+ Guests</option>
+              <option value={4} className="bg-white dark:bg-black text-black dark:text-white">4+ Guests</option>
+              <option value={6} className="bg-white dark:bg-black text-black dark:text-white">6+ Guests</option>
+              <option value={8} className="bg-white dark:bg-black text-black dark:text-white">8+ Guests</option>
+              <option value={10} className="bg-white dark:bg-black text-black dark:text-white">10+ Guests</option>
             </select>
           </div>
 
           {/* Max Price Slider */}
           <div className="flex flex-col justify-center px-1">
-            <div className="flex items-center justify-between text-[11px] text-white/70 mb-1">
+            <div className="flex items-center justify-between text-[11px] text-[var(--text-secondary)] mb-1">
               <span>Max Price</span>
               <span className="font-mono text-brand-gold font-bold">${maxPrice}/night</span>
             </div>
@@ -260,15 +260,15 @@ export default function PropertiesPage() {
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
               aria-label="Max price per night"
-              className="w-full accent-brand-gold cursor-pointer h-1.5 bg-white/20 rounded-lg"
+              className="w-full accent-brand-gold cursor-pointer h-1.5 bg-black/10 dark:bg-white/20 rounded-lg"
             />
           </div>
         </div>
 
         {/* Filter results status row */}
-        <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs">
-          <div className="text-white/60">
-            Showing <span className="text-white font-bold">{filteredProperties.length}</span> of {properties.length} residences
+        <div className="mt-4 pt-3 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-xs">
+          <div className="text-[var(--text-secondary)]">
+            Showing <span className="text-[var(--text-primary)] font-bold">{filteredProperties.length}</span> of {properties.length} residences
           </div>
           {isFiltered && (
             <button
@@ -284,11 +284,11 @@ export default function PropertiesPage() {
 
       {/* Property Cards Grid */}
       {filteredProperties.length === 0 ? (
-        <div className="glass-panel rounded-glass-lg p-12 text-center text-white/60">
+        <div className="glass-panel rounded-glass-lg p-12 text-center text-[var(--text-secondary)]">
           <p className="text-base">No residences match your current search filters.</p>
           <button
             onClick={resetFilters}
-            className="mt-4 px-5 py-2 rounded-full bg-brand-gold text-black text-xs font-bold uppercase tracking-wider hover:bg-white transition-colors"
+            className="mt-4 px-5 py-2 rounded-full bg-brand-gold text-black text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
           >
             Clear Filters
           </button>
@@ -304,10 +304,10 @@ export default function PropertiesPage() {
               <div
                 key={p.id}
                 onClick={() => handleCardClick(p.slug)}
-                className="group cursor-pointer glass-panel rounded-glass-lg overflow-hidden border border-white/10 hover:border-brand-gold/60 transition-all duration-300 hover:shadow-glow flex flex-col"
+                className="group cursor-pointer glass-panel rounded-glass-lg overflow-hidden border border-black/10 dark:border-white/10 hover:border-brand-gold/60 transition-all duration-300 hover:shadow-glow flex flex-col"
               >
                 {/* Image Cover Container */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-white/5">
+                <div className="relative aspect-[16/10] overflow-hidden bg-black/10 dark:bg-white/5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={heroImage}
@@ -324,13 +324,13 @@ export default function PropertiesPage() {
                     <span className="glass-panel px-3 py-1 rounded-full text-[10px] font-bold tracking-widest text-brand-gold uppercase backdrop-blur-md">
                       {p.isFeatured ? '★ FEATURED' : 'LUXURY STAY'}
                     </span>
-                    <span className="glass-panel px-2.5 py-1 rounded-full text-[11px] text-white/90 backdrop-blur-md font-mono">
+                    <span className="glass-panel px-2.5 py-1 rounded-full text-[11px] text-white backdrop-blur-md font-mono">
                       ★ 4.96
                     </span>
                   </div>
 
                   {/* Bottom Image Overlay: Location */}
-                  <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-xs text-white/90 font-medium">
+                  <div className="absolute bottom-3 left-3 flex items-center gap-1.5 text-xs text-white/95 font-medium">
                     <MapPin className="w-3.5 h-3.5 text-brand-gold" />
                     <span>{p.location}</span>
                   </div>
@@ -339,26 +339,26 @@ export default function PropertiesPage() {
                 {/* Card Body */}
                 <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                   <div>
-                    <h3 className="text-lg font-bold text-white group-hover:text-brand-gold transition-colors">
+                    <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-brand-gold transition-colors">
                       {p.title}
                     </h3>
-                    <p className="text-xs text-white/60 line-clamp-2 mt-1 leading-relaxed">
+                    <p className="text-xs text-[var(--text-secondary)] line-clamp-2 mt-1 leading-relaxed">
                       {p.tagLine}
                     </p>
                   </div>
 
                   {/* Specs row */}
-                  <div className="grid grid-cols-3 gap-2 py-3 border-y border-white/10 text-white/70 text-[11px]">
+                  <div className="grid grid-cols-3 gap-2 py-3 border-y border-black/10 dark:border-white/10 text-[var(--text-secondary)] text-[11px]">
                     <div className="flex items-center gap-1.5">
-                      <Bed className="w-3.5 h-3.5 text-white/40" />
+                      <Bed className="w-3.5 h-3.5 text-[var(--text-muted)]" />
                       <span>{p.bedrooms} Beds</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Bath className="w-3.5 h-3.5 text-white/40" />
+                      <Bath className="w-3.5 h-3.5 text-[var(--text-muted)]" />
                       <span>{p.bathrooms} Baths</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Users className="w-3.5 h-3.5 text-white/40" />
+                      <Users className="w-3.5 h-3.5 text-[var(--text-muted)]" />
                       <span>{p.maxGuests} Guests</span>
                     </div>
                   </div>
@@ -366,10 +366,10 @@ export default function PropertiesPage() {
                   {/* Price & CTA */}
                   <div className="flex items-center justify-between pt-1">
                     <div>
-                      <span className="text-xl font-bold text-white font-mono">
+                      <span className="text-xl font-bold text-[var(--text-primary)] font-mono">
                         ${p.pricePerNight}
                       </span>
-                      <span className="text-xs text-white/50"> / night</span>
+                      <span className="text-xs text-[var(--text-muted)]"> / night</span>
                     </div>
 
                     <button
@@ -377,7 +377,7 @@ export default function PropertiesPage() {
                         e.stopPropagation();
                         handleCardClick(p.slug);
                       }}
-                      className="px-4 py-2 rounded-xl bg-white/10 group-hover:bg-brand-gold group-hover:text-black text-white text-xs font-bold tracking-wider uppercase transition-all flex items-center gap-1.5 shadow-sm"
+                      className="px-4 py-2 rounded-xl bg-black/5 dark:bg-white/10 group-hover:bg-brand-gold group-hover:text-black text-[var(--text-primary)] text-xs font-bold tracking-wider uppercase transition-all flex items-center gap-1.5 shadow-sm"
                     >
                       <span>Explore</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

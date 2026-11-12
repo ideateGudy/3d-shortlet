@@ -157,39 +157,39 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
       : 0;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md pointer-events-auto overflow-y-auto">
-      <div className="glass-panel rounded-glass-lg p-5 sm:p-7 max-w-5xl w-full my-auto text-white relative shadow-2xl max-h-[90vh] flex flex-col animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-md pointer-events-auto overflow-y-auto">
+      <div className="glass-panel rounded-glass-lg p-5 sm:p-7 max-w-5xl w-full my-auto text-[var(--text-primary)] relative shadow-2xl max-h-[90vh] flex flex-col animate-in fade-in zoom-in-95 duration-200">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors z-10"
+          className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors z-10"
           aria-label="Close modal"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Modal Header */}
-        <div className="mb-4 pr-10 border-b border-white/10 pb-3 flex items-start justify-between">
+        <div className="mb-4 pr-10 border-b border-black/10 dark:border-white/10 pb-3 flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-bold tracking-widest text-brand-gold uppercase">
                 RESERVATION PORTAL
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />
-              <span className="text-[10px] text-white/50 tracking-wider">
+              <span className="text-[10px] text-[var(--text-muted)] tracking-wider">
                 VANTAGE OVERVIEW ACTIVE
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white mt-0.5">
+            <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mt-0.5">
               {property.title}
             </h2>
-            <p className="text-xs text-white/60">{property.location}</p>
+            <p className="text-xs text-[var(--text-muted)]">{property.location}</p>
           </div>
         </div>
 
         {/* Error notification banner */}
         {errorMsg && (
-          <div className="mb-4 p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-200 text-xs flex items-center gap-2 shrink-0">
+          <div className="mb-4 p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-700 dark:text-red-200 text-xs flex items-center gap-2 shrink-0">
             <span>⚠️</span>
             <span>{errorMsg}</span>
           </div>
@@ -209,7 +209,7 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
                   onUnavailableAlert={(msg) => setErrorMsg(msg)}
                 />
 
-                <div className="p-3 rounded-xl bg-white/5 border border-white/5 text-[11px] text-white/60 flex items-center gap-2">
+                <div className="p-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 text-[11px] text-[var(--text-secondary)] flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-brand-gold shrink-0" />
                   <span>
                     Select check-in then check-out. Booking dates are locked via double-booking exclusion constraints.
@@ -220,12 +220,12 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
               {/* Right Column: Guests, Breakdown & Actions (5 cols on desktop) */}
               <div className="lg:col-span-5 space-y-4">
                 {/* Selected Dates Display Card */}
-                <div className="glass-panel rounded-xl p-3.5 border border-white/10 flex items-center justify-between text-xs">
+                <div className="glass-panel rounded-xl p-3.5 border border-black/10 dark:border-white/10 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-brand-gold" />
                     <div>
-                      <div className="text-[10px] text-white/50 uppercase">Dates</div>
-                      <div className="font-semibold text-white">
+                      <div className="text-[10px] text-[var(--text-muted)] uppercase">Dates</div>
+                      <div className="font-semibold text-[var(--text-primary)]">
                         {selectedRange.checkIn || 'Select In'} → {selectedRange.checkOut || 'Select Out'}
                       </div>
                     </div>
@@ -259,7 +259,7 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
                     type="button"
                     disabled={!selectedRange.checkIn || !selectedRange.checkOut}
                     onClick={handleHoldSubmit}
-                    className="w-full py-3.5 px-6 rounded-xl bg-brand-gold hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow flex items-center justify-center gap-2"
+                    className="w-full py-3.5 px-6 rounded-xl bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black disabled:opacity-40 disabled:cursor-not-allowed text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow flex items-center justify-center gap-2"
                   >
                     <span>Reserve & Lock Dates (15m Hold)</span>
                     <span>→</span>
@@ -284,7 +284,7 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
               <div className="p-3.5 rounded-xl bg-brand-gold/15 border border-brand-gold/40 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-brand-gold animate-spin" />
-                  <span className="text-white/90">Dates held exclusively for your checkout:</span>
+                  <span className="text-[var(--text-primary)] font-medium">Dates held exclusively for your checkout:</span>
                 </div>
                 <span className="font-mono font-bold text-brand-gold text-sm">
                   {formatTimer(holdTimer)}
@@ -295,7 +295,7 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
                 {/* Form Fields (7 cols) */}
                 <div className="lg:col-span-7 space-y-3">
                   <div>
-                    <label className="block text-[11px] font-medium text-white/70 mb-1">
+                    <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                       Full Name *
                     </label>
                     <input
@@ -304,13 +304,13 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
                       placeholder="e.g. Johnathan Vance"
                       value={guestName}
                       onChange={(e) => setGuestName(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold transition-colors"
+                      className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-brand-gold transition-colors"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[11px] font-medium text-white/70 mb-1">
+                      <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                         Email Address *
                       </label>
                       <input
@@ -319,11 +319,11 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
                         placeholder="john@example.com"
                         value={guestEmail}
                         onChange={(e) => setGuestEmail(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold transition-colors"
+                        className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-brand-gold transition-colors"
                       />
                     </div>
                     <div>
-                      <label className="block text-[11px] font-medium text-white/70 mb-1">
+                      <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                         Phone Number *
                       </label>
                       <input
@@ -332,13 +332,13 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
                         placeholder="+1 (555) 000-0000"
                         value={guestPhone}
                         onChange={(e) => setGuestPhone(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold transition-colors"
+                        className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-brand-gold transition-colors"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-medium text-white/70 mb-1">
+                    <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                       Special Concierge Notes
                     </label>
                     <textarea
@@ -346,22 +346,22 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
                       placeholder="Arrival time, dietary requests, or private transport..."
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold transition-colors"
+                      className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-brand-gold transition-colors"
                     />
                   </div>
                 </div>
 
                 {/* Right Column: Breakdown & Submit (5 cols) */}
                 <div className="lg:col-span-5 space-y-4">
-                  <div className="glass-panel rounded-xl p-4 border border-white/10 space-y-2 text-xs">
-                    <div className="text-white/60 text-[10px] uppercase font-bold text-brand-gold">
+                  <div className="glass-panel rounded-xl p-4 border border-black/10 dark:border-white/10 space-y-2 text-xs">
+                    <div className="text-[10px] uppercase font-bold text-brand-gold">
                       Reservation Summary
                     </div>
-                    <div className="text-sm font-bold text-white">{property.title}</div>
-                    <div className="text-white/70">
+                    <div className="text-sm font-bold text-[var(--text-primary)]">{property.title}</div>
+                    <div className="text-[var(--text-secondary)]">
                       {selectedRange.checkIn} → {selectedRange.checkOut} ({nightsCount} nights)
                     </div>
-                    <div className="text-white/70">
+                    <div className="text-[var(--text-secondary)]">
                       Guests: {adults} Adults{childrenCount > 0 ? `, ${childrenCount} Children` : ''}
                     </div>
                   </div>
@@ -377,14 +377,14 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
                     <button
                       type="button"
                       onClick={() => setStep('SELECT')}
-                      className="w-1/3 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white/80 transition-colors"
+                      className="w-1/3 py-3 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-xs font-semibold text-[var(--text-secondary)] transition-colors"
                     >
                       Back
                     </button>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-2/3 py-3 rounded-xl bg-brand-gold hover:bg-white text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow"
+                      className="w-2/3 py-3 rounded-xl bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow"
                     >
                       {isSubmitting ? 'Confirming...' : 'Confirm Stay'}
                     </button>
@@ -401,47 +401,47 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
                 ✓
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">Reservation Confirmed!</h3>
-                <p className="text-xs text-white/60 mt-1">
+                <h3 className="text-xl font-bold text-[var(--text-primary)]">Reservation Confirmed!</h3>
+                <p className="text-xs text-[var(--text-secondary)] mt-1">
                   Your reservation reference code is:
                 </p>
-                <div className="font-mono text-sm font-bold text-brand-gold tracking-widest mt-1.5 bg-white/5 py-1.5 px-4 rounded-lg inline-block border border-brand-gold/30">
+                <div className="font-mono text-sm font-bold text-brand-gold tracking-widest mt-1.5 bg-black/5 dark:bg-white/5 py-1.5 px-4 rounded-lg inline-block border border-brand-gold/30">
                   {activeBooking.id.substring(0, 8).toUpperCase()}
                 </div>
               </div>
 
-              <div className="glass-panel rounded-glass-sm p-4 text-left text-xs text-white/80 space-y-2 border border-white/10">
+              <div className="glass-panel rounded-glass-sm p-4 text-left text-xs text-[var(--text-primary)] space-y-2 border border-black/10 dark:border-white/10">
                 <div className="flex justify-between">
-                  <span className="text-white/50">Residence:</span>
-                  <span className="font-semibold text-white">{property.title}</span>
+                  <span className="text-[var(--text-muted)]">Residence:</span>
+                  <span className="font-semibold">{property.title}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/50">Check-in:</span>
-                  <span className="font-semibold text-white">{activeBooking.checkIn.substring(0, 10)}</span>
+                  <span className="text-[var(--text-muted)]">Check-in:</span>
+                  <span className="font-semibold">{activeBooking.checkIn.substring(0, 10)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/50">Check-out:</span>
-                  <span className="font-semibold text-white">{activeBooking.checkOut.substring(0, 10)}</span>
+                  <span className="text-[var(--text-muted)]">Check-out:</span>
+                  <span className="font-semibold">{activeBooking.checkOut.substring(0, 10)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-white/50">Guest:</span>
-                  <span className="font-semibold text-white">{activeBooking.guestName}</span>
+                  <span className="text-[var(--text-muted)]">Guest:</span>
+                  <span className="font-semibold">{activeBooking.guestName}</span>
                 </div>
-                <div className="flex justify-between border-t border-white/10 pt-2 text-brand-gold font-bold">
+                <div className="flex justify-between border-t border-black/10 dark:border-white/10 pt-2 text-brand-gold font-bold">
                   <span>Total Amount:</span>
                   <span>${activeBooking.totalPrice.toLocaleString()}</span>
                 </div>
               </div>
 
-              <p className="text-[11px] text-white/50">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 A confirmation receipt and luxury access pass have been dispatched to{' '}
-                <span className="text-white font-medium">{activeBooking.guestEmail}</span>.
+                <span className="font-medium text-[var(--text-primary)]">{activeBooking.guestEmail}</span>.
               </p>
 
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full py-3.5 rounded-xl bg-brand-gold text-black text-xs font-bold uppercase tracking-wider hover:bg-white transition-all shadow-glow"
+                className="w-full py-3.5 rounded-xl bg-brand-gold text-black text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-glow"
               >
                 Return to Experience
               </button>

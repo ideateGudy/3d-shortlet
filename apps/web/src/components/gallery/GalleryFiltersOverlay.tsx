@@ -77,13 +77,13 @@ export function GalleryFiltersOverlay({
             placeholder="Search location..."
             value={location}
             onChange={handleLocationChange}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-white/40 focus:outline-none focus:border-brand-gold/60 transition-colors"
+            className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:border-brand-gold/60 transition-colors"
           />
         </div>
 
         {/* Max price slider */}
         <div className="flex items-center gap-2.5 min-w-[170px]">
-          <span className="text-[11px] text-white/60">Max:</span>
+          <span className="text-[11px] text-[var(--text-secondary)]">Max:</span>
           <input
             type="range"
             min={1000}
@@ -102,26 +102,26 @@ export function GalleryFiltersOverlay({
         <select
           value={bedrooms}
           onChange={handleBedroomsChange}
-          className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold/60 cursor-pointer"
+          className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold/60 cursor-pointer"
         >
-          <option value={0} className="bg-space-900 text-white">All Bedrooms</option>
-          <option value={2} className="bg-space-900 text-white">2+ Bedrooms</option>
-          <option value={3} className="bg-space-900 text-white">3+ Bedrooms</option>
-          <option value={4} className="bg-space-900 text-white">4+ Bedrooms</option>
-          <option value={5} className="bg-space-900 text-white">5+ Bedrooms</option>
+          <option value={0} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">All Bedrooms</option>
+          <option value={2} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">2+ Bedrooms</option>
+          <option value={3} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">3+ Bedrooms</option>
+          <option value={4} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">4+ Bedrooms</option>
+          <option value={5} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">5+ Bedrooms</option>
         </select>
 
         {/* Guests dropdown */}
         <select
           value={guests}
           onChange={handleGuestsChange}
-          className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold/60 cursor-pointer"
+          className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold/60 cursor-pointer"
         >
-          <option value={0} className="bg-space-900 text-white">All Guests</option>
-          <option value={2} className="bg-space-900 text-white">2+ Guests</option>
-          <option value={4} className="bg-space-900 text-white">4+ Guests</option>
-          <option value={6} className="bg-space-900 text-white">6+ Guests</option>
-          <option value={8} className="bg-space-900 text-white">8+ Guests</option>
+          <option value={0} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">All Guests</option>
+          <option value={2} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">2+ Guests</option>
+          <option value={4} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">4+ Guests</option>
+          <option value={6} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">6+ Guests</option>
+          <option value={8} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">8+ Guests</option>
         </select>
 
         {/* Result counter & reset */}
@@ -132,7 +132,7 @@ export function GalleryFiltersOverlay({
           {(location || maxPrice < 4000 || bedrooms > 0 || guests > 0) && (
             <button
               onClick={resetFilters}
-              className="text-[10px] text-white/50 hover:text-white underline"
+              className="text-[10px] text-[var(--text-secondary)] hover:text-[var(--text-primary)] underline"
             >
               Reset
             </button>

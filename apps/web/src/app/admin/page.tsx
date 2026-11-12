@@ -224,17 +224,17 @@ export default function AdminDashboardPage() {
         <div className="flex items-center gap-3">
           <span className="w-3 h-3 rounded-full bg-brand-gold shadow-glow" />
           <div>
-            <h1 className="text-xl font-bold uppercase tracking-wider text-white">
+            <h1 className="text-xl font-bold uppercase tracking-wider text-[var(--text-primary)]">
               Operations & Concierge Portal
             </h1>
-            <p className="text-xs text-white/50">
+            <p className="text-xs text-[var(--text-secondary)]">
               Curate residences, place spatial hotspots, and govern reservations
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex bg-white/5 p-1 rounded-xl border border-white/10">
+          <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-xl border border-black/10 dark:border-white/10">
             {(['PROPERTIES', 'BOOKINGS', 'BLOCKS'] as const).map((tab) => (
               <button
                 key={tab}
@@ -242,7 +242,7 @@ export default function AdminDashboardPage() {
                 className={`px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wider transition-all ${
                   activeTab === tab
                     ? 'bg-brand-gold text-black shadow-glow'
-                    : 'text-white/60 hover:text-white'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {tab}
@@ -252,7 +252,7 @@ export default function AdminDashboardPage() {
 
           <button
             onClick={handleLogout}
-            className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-red-500/20 hover:text-red-300 text-xs font-medium text-white/70 transition-colors"
+            className="px-3.5 py-1.5 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-red-500/20 hover:text-red-500 text-xs font-medium text-[var(--text-secondary)] transition-colors"
           >
             Sign Out
           </button>
@@ -265,12 +265,12 @@ export default function AdminDashboardPage() {
           {/* Left: Property & Section Picker */}
           <div className="glass-panel rounded-glass-lg p-5 space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-primary)]">
                 Residences ({properties.length})
               </h3>
               <button
                 onClick={handleOpenCreateProperty}
-                className="px-3 py-1.5 rounded-lg bg-brand-gold hover:bg-white text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow flex items-center gap-1.5"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Residence</span>
@@ -283,8 +283,8 @@ export default function AdminDashboardPage() {
                   key={p.id}
                   className={`w-full p-3 rounded-xl transition-all border ${
                     selectedProperty?.id === p.id
-                      ? 'bg-brand-gold/15 border-brand-gold text-white'
-                      : 'bg-white/5 border-white/5 text-white/70 hover:bg-white/10'
+                      ? 'bg-brand-gold/15 border-brand-gold text-[var(--text-primary)]'
+                      : 'bg-black/5 dark:bg-white/5 border-black/5 dark:border-white/5 text-[var(--text-secondary)] hover:bg-black/10 dark:hover:bg-white/10'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -299,10 +299,10 @@ export default function AdminDashboardPage() {
                       }}
                       className="text-left flex-1"
                     >
-                      <div className="text-xs font-semibold hover:text-brand-gold transition-colors">
+                      <div className="text-xs font-semibold text-[var(--text-primary)] hover:text-brand-gold transition-colors">
                         {p.title}
                       </div>
-                      <div className="text-[11px] text-white/50">
+                      <div className="text-[11px] text-[var(--text-secondary)]">
                         {p.location} • ${p.pricePerNight}/night • {p.bedrooms} beds
                       </div>
                     </button>
@@ -311,14 +311,14 @@ export default function AdminDashboardPage() {
                       <button
                         onClick={() => handleOpenEditProperty(p)}
                         title="Edit Residence Details"
-                        className="p-1.5 rounded-lg bg-white/5 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+                        className="p-1.5 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/20 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                       >
                         <Pencil className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDeleteProperty(p.id, p.title)}
                         title="Delete Residence"
-                        className="p-1.5 rounded-lg bg-white/5 hover:bg-red-500/20 text-white/50 hover:text-red-400 transition-colors"
+                        className="p-1.5 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-red-500/20 text-[var(--text-secondary)] hover:text-red-500 transition-colors"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -329,7 +329,7 @@ export default function AdminDashboardPage() {
             </div>
 
             {selectedProperty && (
-              <div className="pt-4 border-t border-white/10 space-y-2">
+              <div className="pt-4 border-t border-black/10 dark:border-white/10 space-y-2">
                 <div className="flex items-center justify-between">
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-gold flex items-center gap-1.5">
                     <Layers className="w-3.5 h-3.5" />
@@ -337,7 +337,7 @@ export default function AdminDashboardPage() {
                   </h4>
                   <button
                     onClick={() => setIsSectionModalOpen(true)}
-                    className="px-2.5 py-1 rounded bg-white/10 hover:bg-brand-gold hover:text-black text-white text-[11px] font-medium tracking-wider transition-all flex items-center gap-1"
+                    className="px-2.5 py-1 rounded bg-black/10 dark:bg-white/10 hover:bg-brand-gold hover:text-black text-[var(--text-primary)] text-[11px] font-medium tracking-wider transition-all flex items-center gap-1"
                   >
                     <Plus className="w-3 h-3" />
                     <span>Add Room</span>
@@ -349,8 +349,8 @@ export default function AdminDashboardPage() {
                       key={sec.id}
                       className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-all ${
                         selectedSection?.id === sec.id
-                          ? 'bg-white/20 text-white font-medium border border-white/30'
-                          : 'bg-white/5 text-white/60 hover:bg-white/10'
+                          ? 'bg-black/10 dark:bg-white/20 text-[var(--text-primary)] font-medium border border-black/20 dark:border-white/30'
+                          : 'bg-black/5 dark:bg-white/5 text-[var(--text-secondary)] hover:bg-black/10 dark:hover:bg-white/10'
                       }`}
                     >
                       <button
@@ -363,14 +363,14 @@ export default function AdminDashboardPage() {
                       <button
                         onClick={() => handleDeleteSection(sec.id, sec.name)}
                         title="Delete Section"
-                        className="p-1 hover:text-red-400 text-white/40 transition-colors"
+                        className="p-1 hover:text-red-400 text-[var(--text-secondary)] transition-colors"
                       >
                         <Trash2 className="w-3 h-3" />
                       </button>
                     </div>
                   ))}
                   {(!selectedProperty.sections || selectedProperty.sections.length === 0) && (
-                    <div className="text-[11px] text-white/40 p-2 text-center">
+                    <div className="text-[11px] text-[var(--text-secondary)] p-2 text-center">
                       No rooms added yet. Click &quot;Add Room&quot; above to create a 360° panorama room.
                     </div>
                   )}
@@ -389,8 +389,8 @@ export default function AdminDashboardPage() {
                 onSaveHotspots={handleSaveHotspots}
               />
             ) : (
-              <div className="h-64 flex flex-col items-center justify-center text-xs text-white/40 space-y-2">
-                <Building2 className="w-8 h-8 text-white/20" />
+              <div className="h-64 flex flex-col items-center justify-center text-xs text-[var(--text-secondary)] space-y-2">
+                <Building2 className="w-8 h-8 text-black/20 dark:text-white/20" />
                 <span>Select a residence room to place interactive 3D navigation hotspots</span>
               </div>
             )}
@@ -402,7 +402,7 @@ export default function AdminDashboardPage() {
       {activeTab === 'BOOKINGS' && (
         <div className="glass-panel rounded-glass-lg p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-primary)]">
               All Reservations
             </h3>
             <span className="text-xs text-brand-gold font-mono">
@@ -411,9 +411,9 @@ export default function AdminDashboardPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-white/80">
+            <table className="w-full text-left text-xs text-[var(--text-primary)]">
               <thead>
-                <tr className="border-b border-white/10 text-white/50 text-[11px] uppercase tracking-wider">
+                <tr className="border-b border-black/10 dark:border-white/10 text-[var(--text-secondary)] text-[11px] uppercase tracking-wider">
                   <th className="py-3 px-2">ID</th>
                   <th className="py-3 px-2">Guest</th>
                   <th className="py-3 px-2">Property</th>
@@ -424,32 +424,32 @@ export default function AdminDashboardPage() {
                   <th className="py-3 px-2 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5">
+              <tbody className="divide-y divide-black/5 dark:divide-white/5">
                 {bookings.map((b) => (
-                  <tr key={b.id} className="hover:bg-white/5">
-                    <td className="py-3 px-2 font-mono text-[11px] text-white/60">
+                  <tr key={b.id} className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                    <td className="py-3 px-2 font-mono text-[11px] text-[var(--text-secondary)]">
                       {b.id.substring(0, 8)}
                     </td>
                     <td className="py-3 px-2">
-                      <div className="font-medium text-white">{b.guestName}</div>
-                      <div className="text-[10px] text-white/40">{b.guestEmail}</div>
+                      <div className="font-medium text-[var(--text-primary)]">{b.guestName}</div>
+                      <div className="text-[10px] text-[var(--text-secondary)]">{b.guestEmail}</div>
                     </td>
-                    <td className="py-3 px-2 text-white/80">
+                    <td className="py-3 px-2 text-[var(--text-primary)]">
                       {b.property?.title || b.propertyId.substring(0, 8)}
                     </td>
                     <td className="py-3 px-2">{b.checkIn.substring(0, 10)}</td>
                     <td className="py-3 px-2">{b.checkOut.substring(0, 10)}</td>
-                    <td className="py-3 px-2 font-mono font-medium text-white">
+                    <td className="py-3 px-2 font-mono font-medium text-[var(--text-primary)]">
                       ${b.totalPrice.toLocaleString()}
                     </td>
                     <td className="py-3 px-2">
                       <span
                         className={`px-2 py-0.5 rounded text-[10px] font-bold tracking-wider ${
                           b.status === 'CONFIRMED'
-                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                            ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30'
                             : b.status === 'PENDING'
-                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                            : 'bg-red-500/20 text-red-300 border border-red-500/30'
+                            ? 'bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30'
+                            : 'bg-red-500/20 text-red-600 dark:text-red-300 border border-red-500/30'
                         }`}
                       >
                         {b.status}
@@ -459,7 +459,7 @@ export default function AdminDashboardPage() {
                       {b.status === 'PENDING' && (
                         <button
                           onClick={() => handleUpdateBookingStatus(b.id, 'CONFIRMED')}
-                          className="px-2 py-1 rounded bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-300 text-[10px] font-medium"
+                          className="px-2 py-1 rounded bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-700 dark:text-emerald-300 text-[10px] font-medium"
                         >
                           Confirm
                         </button>
@@ -467,7 +467,7 @@ export default function AdminDashboardPage() {
                       {b.status !== 'CANCELLED' && (
                         <button
                           onClick={() => handleUpdateBookingStatus(b.id, 'CANCELLED')}
-                          className="px-2 py-1 rounded bg-red-500/20 hover:bg-red-500/40 text-red-300 text-[10px] font-medium"
+                          className="px-2 py-1 rounded bg-red-500/20 hover:bg-red-500/40 text-red-700 dark:text-red-300 text-[10px] font-medium"
                         >
                           Cancel
                         </button>
@@ -486,23 +486,23 @@ export default function AdminDashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Create Block Form */}
           <div className="glass-panel rounded-glass-lg p-5 space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-primary)]">
               Create Calendar Block
             </h3>
             <form onSubmit={handleCreateBlock} className="space-y-3">
               <div>
-                <label className="block text-[11px] font-medium text-white/70 mb-1">
+                <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                   Select Residence
                 </label>
                 <select
                   value={blockPropId}
                   onChange={(e) => setBlockPropId(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold"
+                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold"
                   required
                 >
-                  <option value="" className="bg-black text-white">Choose residence...</option>
+                  <option value="" className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">Choose residence...</option>
                   {properties.map((p) => (
-                    <option key={p.id} value={p.id} className="bg-black text-white">
+                    <option key={p.id} value={p.id} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
                       {p.title}
                     </option>
                   ))}
@@ -510,7 +510,7 @@ export default function AdminDashboardPage() {
               </div>
 
               <div>
-                <label className="block text-[11px] font-medium text-white/70 mb-1">
+                <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                   Start Date
                 </label>
                 <input
@@ -518,12 +518,12 @@ export default function AdminDashboardPage() {
                   required
                   value={blockStart}
                   onChange={(e) => setBlockStart(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold"
+                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-medium text-white/70 mb-1">
+                <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                   End Date
                 </label>
                 <input
@@ -531,28 +531,28 @@ export default function AdminDashboardPage() {
                   required
                   value={blockEnd}
                   onChange={(e) => setBlockEnd(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold"
+                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-medium text-white/70 mb-1">
+                <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                   Reason
                 </label>
                 <select
                   value={blockReason}
                   onChange={(e) => setBlockReason(e.target.value as any)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold"
+                  className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold"
                 >
-                  <option value="MAINTENANCE" className="bg-black text-white">Maintenance / Deep Clean</option>
-                  <option value="OWNER_STAY" className="bg-black text-white">Owner Stay</option>
-                  <option value="OTHER" className="bg-black text-white">Other</option>
+                  <option value="MAINTENANCE" className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">Maintenance / Deep Clean</option>
+                  <option value="OWNER_STAY" className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">Owner Stay</option>
+                  <option value="OTHER" className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">Other</option>
                 </select>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-brand-gold hover:bg-white text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow mt-2"
+                className="w-full py-2.5 rounded-xl bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow mt-2"
               >
                 Apply Block
               </button>
@@ -561,10 +561,10 @@ export default function AdminDashboardPage() {
 
           {/* Block list */}
           <div className="lg:col-span-2 glass-panel rounded-glass-lg p-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-primary)] mb-4">
               Active Calendar Blocks
             </h3>
-            <div className="text-xs text-white/50">
+            <div className="text-xs text-[var(--text-secondary)]">
               Blocked dates are immediately locked and rendered unselectable on the 3D guest booking calendar.
             </div>
           </div>

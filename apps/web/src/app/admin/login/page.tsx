@@ -39,27 +39,27 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 pointer-events-auto bg-space-950/80 backdrop-blur-xl">
+    <div className="fixed inset-0 flex items-center justify-center p-4 pointer-events-auto bg-black/60 dark:bg-space-950/80 backdrop-blur-xl">
       <div className="glass-panel rounded-glass-lg p-8 max-w-md w-full shadow-2xl">
         <div className="text-center mb-6">
           <span className="w-3 h-3 rounded-full bg-brand-gold shadow-glow inline-block mb-2" />
-          <h1 className="text-2xl font-bold tracking-tight text-white uppercase">
+          <h1 className="text-2xl font-bold tracking-tight text-[var(--text-primary)] uppercase">
             Admin Portal
           </h1>
-          <p className="text-xs text-white/50 mt-1">
+          <p className="text-xs text-[var(--text-secondary)] mt-1">
             Luxury Property & Experience Management
           </p>
         </div>
 
         {error && (
-          <div className="mb-4 p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-200 text-xs text-center">
+          <div className="mb-4 p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-600 dark:text-red-200 text-xs text-center">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-white/70 mb-1">
+            <label className="block text-xs font-medium text-[var(--text-secondary)] mb-1">
               Admin Email
             </label>
             <input
@@ -67,12 +67,12 @@ export default function AdminLoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold"
+              className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:border-brand-gold"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-white/70 mb-1">
+            <label className="block text-xs font-medium text-[var(--text-secondary)] mb-1">
               Password
             </label>
             <input
@@ -80,21 +80,21 @@ export default function AdminLoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold"
+              className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:border-brand-gold"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-6 rounded-xl bg-brand-gold hover:bg-white text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow"
+            className="w-full py-3 px-6 rounded-xl bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow"
           >
             {loading ? 'Authenticating...' : 'Sign In to Portal'}
           </button>
         </form>
 
-        <div className="mt-6 pt-4 border-t border-white/10 text-center text-[10px] text-white/40">
-          Default seed: admin@shortlet3d.com / AdminPassword123!
+        <div className="mt-6 pt-4 border-t border-black/10 dark:border-white/10 text-center text-[10px] text-[var(--text-secondary)]">
+          Default seed: azonubigoodnews@gmail.com / AdminPassword
         </div>
       </div>
     </div>

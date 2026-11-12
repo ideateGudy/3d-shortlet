@@ -78,8 +78,8 @@ export function VisualHotspotEditor({
     <div className="space-y-4">
       <div className="flex items-center justify-between text-xs">
         <div>
-          <h4 className="font-semibold text-white">Visual Hotspot Placement</h4>
-          <p className="text-white/50 text-[11px]">
+          <h4 className="font-semibold text-[var(--text-primary)]">Visual Hotspot Placement</h4>
+          <p className="text-[var(--text-secondary)] text-[11px]">
             Click anywhere on the preview to position a spatial portal
           </p>
         </div>
@@ -90,7 +90,7 @@ export function VisualHotspotEditor({
       <div
         ref={imageRef}
         onClick={handleImageClick}
-        className="relative w-full aspect-[2/1] rounded-2xl overflow-hidden cursor-crosshair border border-white/20 select-none bg-black/40 group"
+        className="relative w-full aspect-[2/1] rounded-2xl overflow-hidden cursor-crosshair border border-black/10 dark:border-white/20 select-none bg-black/5 dark:bg-black/40 group"
       >
         <img
           src={section.imageUrl}
@@ -155,33 +155,33 @@ export function VisualHotspotEditor({
       {/* Pending Hotspot Form Drawer */}
       {pendingHotspot && (
         <div className="glass-panel rounded-glass-sm p-4 space-y-3 border-emerald-500/40">
-          <div className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+          <div className="text-xs font-semibold text-emerald-500 dark:text-emerald-400 flex items-center gap-1.5">
             <span>✦</span>
             <span>Configure New Hotspot</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] text-white/70 mb-1">Hotspot Label *</label>
+              <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Hotspot Label *</label>
               <input
                 type="text"
                 autoFocus
                 placeholder="e.g. Master Bedroom, Chef's Kitchen..."
                 value={label}
                 onChange={(e) => setLabel(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-1.5 text-xs text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:border-brand-gold"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] text-white/70 mb-1">Target Section *</label>
+              <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Target Section *</label>
               <select
                 value={targetSectionId}
                 onChange={(e) => setTargetSectionId(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-brand-gold"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-1.5 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold"
               >
                 {allSections.map((sec) => (
-                  <option key={sec.id} value={sec.id} className="bg-space-900 text-white">
+                  <option key={sec.id} value={sec.id} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
                     {sec.name} ({sec.type})
                   </option>
                 ))}
@@ -193,7 +193,7 @@ export function VisualHotspotEditor({
             <button
               type="button"
               onClick={() => setPendingHotspot(null)}
-              className="px-3 py-1.5 rounded-lg bg-white/10 text-xs text-white/70 hover:text-white"
+              className="px-3 py-1.5 rounded-lg bg-black/5 dark:bg-white/10 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             >
               Cancel
             </button>
@@ -201,7 +201,7 @@ export function VisualHotspotEditor({
               type="button"
               disabled={!label.trim()}
               onClick={handleAddHotspot}
-              className="px-4 py-1.5 rounded-lg bg-brand-gold hover:bg-white text-black text-xs font-bold uppercase transition-all shadow-glow"
+              className="px-4 py-1.5 rounded-lg bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black text-xs font-bold uppercase transition-all shadow-glow"
             >
               Place Hotspot
             </button>

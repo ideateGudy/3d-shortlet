@@ -3,6 +3,7 @@ import './globals.css';
 import { AppCanvas } from '@/components/3d/AppCanvas';
 import { Header } from '@/components/ui/Header';
 import { NavigationSync } from '@/components/ui/NavigationSync';
+import { ThemeScript } from '@/components/ui/ThemeScript';
 
 export const metadata: Metadata = {
   title: 'AURA 3D — Camera-Driven Luxury Shortlets',
@@ -16,8 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-[#06080d] text-white antialiased overflow-x-hidden">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
+      <body className="bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased overflow-x-hidden">
         {/* Navigation sync for camera modes without remounting canvas */}
         <NavigationSync />
 

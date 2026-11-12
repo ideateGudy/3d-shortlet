@@ -40,9 +40,9 @@ export function WhatsAppFallbackButton({
       href={encodedUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/20 text-xs font-semibold text-white/90 tracking-wide transition-all shadow-lg hover:border-brand-gold"
+      className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/20 text-xs font-semibold text-[var(--text-primary)] tracking-wide transition-all shadow-lg hover:border-brand-gold"
     >
-      <span className="text-emerald-400 font-bold">WhatsApp Concierge Direct</span>
+      <span className="text-emerald-500 dark:text-emerald-400 font-bold">WhatsApp Concierge Direct</span>
       <span className="text-xs">↗</span>
     </a>
   );

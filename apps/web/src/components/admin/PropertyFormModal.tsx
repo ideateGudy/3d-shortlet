@@ -147,26 +147,26 @@ export function PropertyFormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md pointer-events-auto overflow-y-auto">
-      <div className="glass-panel rounded-glass-lg p-6 sm:p-8 max-w-3xl w-full my-auto text-white relative shadow-2xl max-h-[90vh] flex flex-col animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 dark:bg-black/80 backdrop-blur-md pointer-events-auto overflow-y-auto">
+      <div className="glass-panel rounded-glass-lg p-6 sm:p-8 max-w-3xl w-full my-auto text-[var(--text-primary)] relative shadow-2xl max-h-[90vh] flex flex-col animate-in fade-in zoom-in-95 duration-200">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+          className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Modal Header */}
-        <div className="mb-4 pr-10 border-b border-white/10 pb-3 flex items-center gap-3">
+        <div className="mb-4 pr-10 border-b border-black/10 dark:border-white/10 pb-3 flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-brand-gold/20 border border-brand-gold/40 flex items-center justify-center text-brand-gold">
             <Building2 className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">
+            <h2 className="text-xl font-bold text-[var(--text-primary)]">
               {isEditing ? 'Edit Residence Details' : 'Create New Residence'}
             </h2>
-            <p className="text-xs text-white/50">
+            <p className="text-xs text-[var(--text-secondary)]">
               {isEditing
                 ? 'Update property details, pricing, and guest capacity'
                 : 'Scaffold an architectural shortlet property visible in 3D'}
@@ -175,7 +175,7 @@ export function PropertyFormModal({
         </div>
 
         {errorMsg && (
-          <div className="mb-4 p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-200 text-xs flex items-center gap-2">
+          <div className="mb-4 p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-600 dark:text-red-200 text-xs flex items-center gap-2">
             <span>⚠️</span>
             <span>{errorMsg}</span>
           </div>
@@ -186,7 +186,7 @@ export function PropertyFormModal({
           {/* Row 1: Title & Slug */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 Property Title *
               </label>
               <input
@@ -195,12 +195,12 @@ export function PropertyFormModal({
                 placeholder="e.g. Solarium Cliffside Estate"
                 value={title}
                 onChange={(e) => handleTitleChange(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold transition-colors"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:border-brand-gold transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 URL Slug *
               </label>
               <input
@@ -209,7 +209,7 @@ export function PropertyFormModal({
                 placeholder="e.g. solarium-cliffside-estate"
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono placeholder-white/30 focus:outline-none focus:border-brand-gold transition-colors"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-primary)] font-mono placeholder-[var(--text-secondary)]/50 focus:outline-none focus:border-brand-gold transition-colors"
               />
             </div>
           </div>
@@ -217,7 +217,7 @@ export function PropertyFormModal({
           {/* Row 2: Tagline & Location */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 Tagline / Teaser
               </label>
               <input
@@ -225,12 +225,12 @@ export function PropertyFormModal({
                 placeholder="e.g. Sculpted cliffside villa overlooking azure waters"
                 value={tagLine}
                 onChange={(e) => setTagLine(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold transition-colors"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:border-brand-gold transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 Location (City, Country) *
               </label>
               <input
@@ -239,14 +239,14 @@ export function PropertyFormModal({
                 placeholder="e.g. Amalfi Coast, Italy"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold transition-colors"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:border-brand-gold transition-colors"
               />
             </div>
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-[11px] font-medium text-white/70 mb-1">
+            <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
               Architectural Description
             </label>
             <textarea
@@ -254,14 +254,14 @@ export function PropertyFormModal({
               placeholder="Describe the aesthetic, light orientation, materials, and luxury features..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold transition-colors"
+              className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:border-brand-gold transition-colors"
             />
           </div>
 
           {/* Row 3: Specs (Bedrooms, Bathrooms, Max Guests) */}
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 Bedrooms *
               </label>
               <input
@@ -270,12 +270,12 @@ export function PropertyFormModal({
                 required
                 value={bedrooms}
                 onChange={(e) => setBedrooms(Number(e.target.value))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 Bathrooms *
               </label>
               <input
@@ -284,12 +284,12 @@ export function PropertyFormModal({
                 required
                 value={bathrooms}
                 onChange={(e) => setBathrooms(Number(e.target.value))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 Max Guests *
               </label>
               <input
@@ -298,7 +298,7 @@ export function PropertyFormModal({
                 required
                 value={maxGuests}
                 onChange={(e) => setMaxGuests(Number(e.target.value))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold"
               />
             </div>
           </div>
@@ -306,7 +306,7 @@ export function PropertyFormModal({
           {/* Row 4: Pricing & Fees */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 Price / Night ($) *
               </label>
               <input
@@ -315,12 +315,12 @@ export function PropertyFormModal({
                 required
                 value={pricePerNight}
                 onChange={(e) => setPricePerNight(Number(e.target.value))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-brand-gold"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] font-mono focus:outline-none focus:border-brand-gold"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 Cleaning Fee ($)
               </label>
               <input
@@ -328,12 +328,12 @@ export function PropertyFormModal({
                 min={0}
                 value={cleaningFee}
                 onChange={(e) => setCleaningFee(Number(e.target.value))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-brand-gold"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] font-mono focus:outline-none focus:border-brand-gold"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 Min Nights
               </label>
               <input
@@ -341,12 +341,12 @@ export function PropertyFormModal({
                 min={1}
                 value={minNights}
                 onChange={(e) => setMinNights(Number(e.target.value))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 Max Nights
               </label>
               <input
@@ -354,7 +354,7 @@ export function PropertyFormModal({
                 min={1}
                 value={maxNights}
                 onChange={(e) => setMaxNights(Number(e.target.value))}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-brand-gold"
               />
             </div>
           </div>
@@ -362,7 +362,7 @@ export function PropertyFormModal({
           {/* Rules & Featured Toggle */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
             <div className="sm:col-span-2">
-              <label className="block text-[11px] font-medium text-white/70 mb-1">
+              <label className="block text-[11px] font-medium text-[var(--text-secondary)] mb-1">
                 House Rules
               </label>
               <input
@@ -370,7 +370,7 @@ export function PropertyFormModal({
                 placeholder="e.g. No pets, private gatherings require prior approval."
                 value={rules}
                 onChange={(e) => setRules(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-white/30 focus:outline-none focus:border-brand-gold"
+                className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-3.5 py-2 text-xs text-[var(--text-primary)] placeholder-[var(--text-secondary)]/50 focus:outline-none focus:border-brand-gold"
               />
             </div>
 
@@ -382,7 +382,7 @@ export function PropertyFormModal({
                 onChange={(e) => setIsFeatured(e.target.checked)}
                 className="w-4 h-4 accent-brand-gold cursor-pointer rounded"
               />
-              <label htmlFor="isFeaturedToggle" className="text-xs text-white/90 cursor-pointer flex items-center gap-1.5">
+              <label htmlFor="isFeaturedToggle" className="text-xs text-[var(--text-primary)] cursor-pointer flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
                 <span>Feature in Showcase</span>
               </label>
@@ -390,18 +390,18 @@ export function PropertyFormModal({
           </div>
 
           {/* Action Buttons */}
-          <div className="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
+          <div className="pt-4 border-t border-black/10 dark:border-white/10 flex items-center justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs text-white/80 transition-colors"
+              className="px-5 py-2.5 rounded-xl bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2.5 rounded-xl bg-brand-gold hover:bg-white text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow flex items-center gap-2"
+              className="px-6 py-2.5 rounded-xl bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow flex items-center gap-2"
             >
               <span>{isSubmitting ? 'Saving...' : isEditing ? 'Update Residence' : 'Create Residence'}</span>
               <span>→</span>

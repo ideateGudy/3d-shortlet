@@ -161,36 +161,36 @@ export default function PropertyDetailPage() {
             <span className="text-[10px] uppercase font-bold tracking-widest text-brand-gold">
               {property.location}
             </span>
-            <span className="text-xs text-white/50">
+            <span className="text-xs text-[var(--text-muted)]">
               {property.bedrooms} Bed • {property.bathrooms} Bath • Max {property.maxGuests} Guests
             </span>
           </div>
 
-          <h1 className="text-xl sm:text-2xl font-bold text-white mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mt-1">
             {property.title}
           </h1>
 
-          <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3">
+          <div className="mt-3 flex items-center justify-between border-t border-black/10 dark:border-white/10 pt-3">
             <div>
-              <span className="text-xs text-white/60">From </span>
-              <span className="text-lg font-bold text-white">
+              <span className="text-xs text-[var(--text-secondary)]">From </span>
+              <span className="text-lg font-bold text-[var(--text-primary)]">
                 ${property.pricePerNight.toLocaleString()}
               </span>
-              <span className="text-[11px] text-white/50"> / night</span>
+              <span className="text-[11px] text-[var(--text-muted)]"> / night</span>
             </div>
 
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setShowDetails(!showDetails)}
-                className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs text-white transition-colors"
+                className="px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-xs text-[var(--text-primary)] transition-colors"
               >
                 {showDetails ? 'Hide Info' : 'Details'}
               </button>
               <button
                 type="button"
                 onClick={() => setIsBookingOpen(true)}
-                className="px-4 py-1.5 rounded-full bg-brand-gold hover:bg-white text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow"
+                className="px-4 py-1.5 rounded-full bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow"
               >
                 Book Now
               </button>
@@ -199,7 +199,7 @@ export default function PropertyDetailPage() {
 
           {/* Expanded details panel */}
           {showDetails && (
-            <div className="mt-4 pt-4 border-t border-white/10 text-xs text-white/80 space-y-3 max-h-60 overflow-y-auto pr-1">
+            <div className="mt-4 pt-4 border-t border-black/10 dark:border-white/10 text-xs text-[var(--text-secondary)] space-y-3 max-h-60 overflow-y-auto pr-1">
               <p className="leading-relaxed">{property.description}</p>
 
               {property.amenities && property.amenities.length > 0 && (
@@ -211,7 +211,7 @@ export default function PropertyDetailPage() {
                     {property.amenities.map((am) => (
                       <div
                         key={am.id || am.name}
-                        className="flex items-center gap-2 text-white/70"
+                        className="flex items-center gap-2 text-[var(--text-secondary)]"
                       >
                         <span className="text-brand-gold text-[10px]">✦</span>
                         <span>{am.name}</span>
@@ -222,7 +222,7 @@ export default function PropertyDetailPage() {
               )}
 
               {property.rules && (
-                <div className="text-[11px] text-white/50 border-t border-white/5 pt-2">
+                <div className="text-[11px] text-[var(--text-muted)] border-t border-black/5 dark:border-white/5 pt-2">
                   <strong>House Rules:</strong> {property.rules}
                 </div>
               )}
@@ -233,7 +233,7 @@ export default function PropertyDetailPage() {
 
       {/* Top Right: Spatial Interaction HUD */}
       <div className="fixed top-24 right-6 z-30 pointer-events-none hidden md:block">
-        <div className="glass-panel rounded-full px-4 py-2 text-[10px] text-white/70 tracking-widest uppercase flex items-center gap-2.5">
+        <div className="glass-panel rounded-full px-4 py-2 text-[10px] text-[var(--text-secondary)] tracking-widest uppercase flex items-center gap-2.5">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span>Drag to look around • Click hotspots to travel</span>
         </div>

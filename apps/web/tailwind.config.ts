@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -21,7 +22,7 @@ const config: Config = {
           800: 'var(--brand-800, #463934)',
           900: 'var(--brand-900, #3c322e)',
           accent: 'var(--brand-accent, #c5a880)',
-          gold: '#dfb76c',
+          gold: 'var(--brand-gold, #dfb76c)',
         },
         space: {
           900: '#07090e',
@@ -39,7 +40,7 @@ const config: Config = {
         glass: '20px',
       },
       boxShadow: {
-        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.45)',
+        glass: 'var(--glass-shadow)',
         'glass-highlight': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.15)',
         glow: '0 0 25px rgba(223, 183, 108, 0.35)',
       },

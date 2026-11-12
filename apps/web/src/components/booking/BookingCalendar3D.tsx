@@ -190,17 +190,17 @@ export function BookingCalendar3D({
         }}
       >
         {/* Header Controls */}
-        <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
+        <div className="flex items-center justify-between mb-4 border-b border-black/10 dark:border-white/10 pb-3">
           <button
             type="button"
             onClick={prevMonth}
-            className="w-8 h-8 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 text-white/80 transition-colors"
+            className="w-8 h-8 rounded-full flex items-center justify-center bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/15 text-[var(--text-primary)] transition-colors"
             aria-label="Previous month"
           >
             ←
           </button>
           <div className="text-center">
-            <h4 className="text-sm font-semibold tracking-wide text-white uppercase">
+            <h4 className="text-sm font-semibold tracking-wide text-[var(--text-primary)] uppercase">
               {monthLabel}
             </h4>
             <span className="text-[10px] text-brand-gold tracking-widest uppercase">
@@ -210,7 +210,7 @@ export function BookingCalendar3D({
           <button
             type="button"
             onClick={nextMonth}
-            className="w-8 h-8 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 text-white/80 transition-colors"
+            className="w-8 h-8 rounded-full flex items-center justify-center bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/15 text-[var(--text-primary)] transition-colors"
             aria-label="Next month"
           >
             →
@@ -220,7 +220,7 @@ export function BookingCalendar3D({
         {/* Weekday headers */}
         <div className="grid grid-cols-7 gap-1 text-center mb-2">
           {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((w) => (
-            <span key={w} className="text-[11px] font-medium text-white/40">
+            <span key={w} className="text-[11px] font-medium text-[var(--text-muted)]">
               {w}
             </span>
           ))}
@@ -259,15 +259,15 @@ export function BookingCalendar3D({
             if (isCheckIn || isCheckOut) {
               cellClass += 'bg-brand-gold text-black font-bold shadow-glow scale-105 z-10';
             } else if (inRange || inHoverRange) {
-              cellClass += 'bg-brand-gold/25 text-white border border-brand-gold/40';
+              cellClass += 'bg-brand-gold/25 text-[var(--text-primary)] border border-brand-gold/40';
             } else if (isAvailable) {
-              cellClass += 'bg-white/5 hover:bg-white/20 text-white cursor-pointer hover:border hover:border-white/30';
+              cellClass += 'bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/20 text-[var(--text-primary)] cursor-pointer hover:border hover:border-black/20 dark:hover:border-white/30';
             } else if (isHeld) {
-              cellClass += 'bg-amber-500/10 text-amber-300/60 cursor-not-allowed line-through opacity-70';
+              cellClass += 'bg-amber-500/10 text-amber-600 dark:text-amber-300/60 cursor-not-allowed line-through opacity-70';
             } else if (isTaken) {
-              cellClass += 'bg-red-500/10 text-red-300/40 cursor-not-allowed line-through opacity-50';
+              cellClass += 'bg-red-500/10 text-red-600 dark:text-red-300/40 cursor-not-allowed line-through opacity-50';
             } else if (isPast) {
-              cellClass += 'text-white/20 cursor-not-allowed opacity-40';
+              cellClass += 'text-[var(--text-muted)] cursor-not-allowed opacity-40';
             }
 
             const dayNumber = parseInt(day.date.split('-')[2], 10);
@@ -289,9 +289,9 @@ export function BookingCalendar3D({
         </div>
 
         {/* Legend */}
-        <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-around text-[10px] text-white/60">
+        <div className="mt-4 pt-3 border-t border-black/10 dark:border-white/10 flex items-center justify-around text-[10px] text-[var(--text-secondary)]">
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-white/80" />
+            <span className="w-2 h-2 rounded-full bg-black/60 dark:bg-white/80" />
             <span>Available</span>
           </div>
           <div className="flex items-center gap-1.5">
