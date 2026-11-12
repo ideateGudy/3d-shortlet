@@ -155,8 +155,8 @@ export default function PropertyDetailPage() {
   return (
     <div className="relative min-h-screen">
       {/* Top Left: Property Title Glass Card */}
-      <div className="fixed top-24 left-6 z-30 pointer-events-auto max-w-sm sm:max-w-md">
-        <div className="glass-panel rounded-glass-md p-5 shadow-2xl backdrop-blur-2xl">
+      <div className="fixed top-24 left-4 sm:left-6 z-30 pointer-events-auto max-w-sm sm:max-w-md max-h-[calc(100vh-140px)] flex flex-col">
+        <div className="glass-panel rounded-glass-md p-5 shadow-2xl backdrop-blur-2xl flex flex-col overflow-hidden">
           <div className="flex items-center justify-between gap-3">
             <span className="text-[10px] uppercase font-bold tracking-widest text-brand-gold">
               {property.location}
@@ -199,7 +199,7 @@ export default function PropertyDetailPage() {
 
           {/* Expanded details panel */}
           {showDetails && (
-            <div className="mt-4 pt-4 border-t border-white/10 text-xs text-white/80 space-y-3 max-h-72 overflow-y-auto">
+            <div className="mt-4 pt-4 border-t border-white/10 text-xs text-white/80 space-y-3 max-h-60 overflow-y-auto pr-1">
               <p className="leading-relaxed">{property.description}</p>
 
               {property.amenities && property.amenities.length > 0 && (

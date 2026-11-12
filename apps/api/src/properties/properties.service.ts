@@ -16,18 +16,24 @@ export class PropertiesService {
   }) {
     const where: any = {};
 
-    if (query?.location) {
-      where.location = { contains: query.location, mode: 'insensitive' };
+    if (query?.location && query.location.trim()) {
+      where.location = { contains: query.location.trim(), mode: 'insensitive' };
     }
-    if (query?.minPrice !== undefined || query?.maxPrice !== undefined) {
+
+    const minP = query?.minPrice !== undefined && query?.minPrice !== null && !isNaN(Number(query.minPrice)) ? Number(query.minPrice) : null;
+    const maxP = query?.maxPrice !== undefined && query?.maxPrice !== null && !isNaN(Number(query.maxPrice)) ? Number(query.maxPrice) : null;
+
+    if (minP !== null || maxP !== null) {
       where.pricePerNight = {};
-      if (query.minPrice !== undefined) where.pricePerNight.gte = Number(query.minPrice);
-      if (query.maxPrice !== undefined) where.pricePerNight.lte = Number(query.maxPrice);
+      if (minP !== null) where.pricePerNight.gte = minP;
+      if (maxP !== null) where.pricePerNight.lte = maxP;
     }
-    if (query?.bedrooms !== undefined) {
+
+    if (query?.bedrooms !== undefined && query?.bedrooms !== null && !isNaN(Number(query.bedrooms)) && Number(query.bedrooms) > 0) {
       where.bedrooms = { gte: Number(query.bedrooms) };
     }
-    if (query?.guests !== undefined) {
+
+    if (query?.guests !== undefined && query?.guests !== null && !isNaN(Number(query.guests)) && Number(query.guests) > 0) {
       where.maxGuests = { gte: Number(query.guests) };
     }
 

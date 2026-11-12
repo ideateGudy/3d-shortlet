@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('admin@shortlet3d.com');
-  const [password, setPassword] = useState('AdminPassword123!');
+  const [email, setEmail] = useState('azonubigoodnews@gmail.com');
+  const [password, setPassword] = useState('AdminPassword');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
