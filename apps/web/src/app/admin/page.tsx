@@ -7,7 +7,7 @@ import { VisualHotspotEditor } from '@/components/admin/VisualHotspotEditor';
 import { PropertyFormModal } from '@/components/admin/PropertyFormModal';
 import { SectionCreateModal } from '@/components/admin/SectionCreateModal';
 import { SectionEditModal } from '@/components/admin/SectionEditModal';
-import { Plus, Pencil, Trash2, Building2, Layers } from 'lucide-react';
+import { Plus, Pencil, Trash2, Building2, Layers, UploadCloud } from 'lucide-react';
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -237,6 +237,16 @@ export default function AdminDashboardPage() {
         </div>
 
         <div className="flex items-center gap-3">
+          {selectedProperty && (
+            <button
+              onClick={() => setIsSectionModalOpen(true)}
+              className="px-3.5 py-1.5 rounded-xl bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow flex items-center gap-1.5"
+            >
+              <UploadCloud className="w-3.5 h-3.5" />
+              <span>Upload Room Photos</span>
+            </button>
+          )}
+
           <div className="flex bg-black/5 dark:bg-white/5 p-1 rounded-xl border border-black/10 dark:border-white/10">
             {(['PROPERTIES', 'BOOKINGS', 'BLOCKS'] as const).map((tab) => (
               <button
@@ -332,18 +342,21 @@ export default function AdminDashboardPage() {
             </div>
 
             {selectedProperty && (
-              <div className="pt-4 border-t border-black/10 dark:border-white/10 space-y-2">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-brand-gold flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5" />
-                    <span>Rooms ({selectedProperty.sections?.length || 0})</span>
-                  </h4>
+              <div className="pt-4 border-t border-black/10 dark:border-white/10 space-y-3">
+                <div className="p-3 rounded-xl bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-between gap-2">
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-brand-gold flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5" />
+                      <span>Rooms ({selectedProperty.sections?.length || 0})</span>
+                    </h4>
+                    <p className="text-[10px] text-[var(--text-secondary)]">Direct upload to Cloudinary</p>
+                  </div>
                   <button
                     onClick={() => setIsSectionModalOpen(true)}
-                    className="px-2.5 py-1 rounded bg-black/10 dark:bg-white/10 hover:bg-brand-gold hover:text-black text-[var(--text-primary)] text-[11px] font-medium tracking-wider transition-all flex items-center gap-1"
+                    className="px-3 py-1.5 rounded-lg bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black text-[11px] font-bold tracking-wider transition-all shadow-glow flex items-center gap-1 shrink-0"
                   >
-                    <Plus className="w-3 h-3" />
-                    <span>Add Room</span>
+                    <UploadCloud className="w-3 h-3" />
+                    <span>Upload Room</span>
                   </button>
                 </div>
                 <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1">
@@ -415,6 +428,10 @@ export default function AdminDashboardPage() {
                 section={selectedSection}
                 allSections={selectedProperty.sections || []}
                 onSaveHotspots={handleSaveHotspots}
+                onReplaceImage={() => {
+                  setSectionToEdit(selectedSection);
+                  setIsSectionEditModalOpen(true);
+                }}
               />
             ) : (
               <div className="h-64 flex flex-col items-center justify-center text-xs text-[var(--text-secondary)] space-y-2">
@@ -463,7 +480,7 @@ export default function AdminDashboardPage() {
                       <div className="text-[10px] text-[var(--text-secondary)]">{b.guestEmail}</div>
                     </td>
                     <td className="py-3 px-2 text-[var(--text-primary)]">
-                      {b.property?.title || b.propertyId.substring(0, 8)}
+                      {properties.find((p) => p.id === b.propertyId)?.title || b.propertyId.substring(0, 8)}
                     </td>
                     <td className="py-3 px-2">{b.checkIn.substring(0, 10)}</td>
                     <td className="py-3 px-2">{b.checkOut.substring(0, 10)}</td>

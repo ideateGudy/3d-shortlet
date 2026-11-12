@@ -3,17 +3,20 @@
 import React, { useState, useRef } from 'react';
 import type { Hotspot, PropertySection } from '@shortlet/shared';
 import { uvToSphericalVector, sphericalVectorToUV } from '@/lib/3d/cameraUtils';
+import { UploadCloud, CheckCircle2 } from 'lucide-react';
 
 interface VisualHotspotEditorProps {
   section: PropertySection;
   allSections: PropertySection[];
   onSaveHotspots: (hotspots: Hotspot[]) => Promise<void>;
+  onReplaceImage?: () => void;
 }
 
 export function VisualHotspotEditor({
   section,
   allSections,
   onSaveHotspots,
+  onReplaceImage,
 }: VisualHotspotEditorProps) {
   const [hotspots, setHotspots] = useState<Hotspot[]>(section.hotspots || []);
   const [pendingHotspot, setPendingHotspot] = useState<{
@@ -76,14 +79,37 @@ export function VisualHotspotEditor({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
         <div>
-          <h4 className="font-semibold text-[var(--text-primary)]">Visual Hotspot Placement</h4>
+          <div className="flex items-center gap-2">
+            <h4 className="font-bold text-sm text-[var(--text-primary)]">
+              Room Preview: {section.name}
+            </h4>
+            {section.imageUrl.includes('cloudinary.com') ? (
+              <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 text-[10px] font-bold flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3" />
+                <span>☁ Cloudinary CDN</span>
+              </span>
+            ) : null}
+          </div>
           <p className="text-[var(--text-secondary)] text-[11px]">
             Click anywhere on the preview to position a spatial portal
           </p>
         </div>
-        {isSaving && <span className="text-brand-gold animate-pulse text-[11px]">Saving changes...</span>}
+
+        <div className="flex items-center gap-2">
+          {isSaving && <span className="text-brand-gold animate-pulse text-[11px] mr-2">Saving changes...</span>}
+          {onReplaceImage && (
+            <button
+              type="button"
+              onClick={onReplaceImage}
+              className="px-3.5 py-1.5 rounded-lg bg-brand-gold hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black text-xs font-bold uppercase tracking-wider transition-all shadow-glow flex items-center gap-1.5"
+            >
+              <UploadCloud className="w-3.5 h-3.5" />
+              <span>Upload / Replace Photo</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Interactive 2D Preview Frame */}
