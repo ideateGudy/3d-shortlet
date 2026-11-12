@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@shortlet/shared', 'three'],
+  webpack: (config) => {
+    config.cache = false;
+    return config;
+  },
   images: {
     remotePatterns: [
       {

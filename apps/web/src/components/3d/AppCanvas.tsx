@@ -15,7 +15,8 @@ function CanvasBackground() {
   const theme = useThemeStore((s) => s.theme);
 
   useEffect(() => {
-    const bgColor = theme === 'dark' ? '#06080d' : '#e6ecf2';
+    // Elegant deep twilight blue-gray for dark mode instead of pitch black
+    const bgColor = theme === 'dark' ? '#0f172a' : '#f1f5f9';
     const color = new THREE.Color(bgColor);
     gl.setClearColor(color, 1);
     scene.background = color;
@@ -33,21 +34,35 @@ function SceneManager() {
     <>
       <CanvasBackground />
 
-      {/* Adaptive ambient lighting */}
-      <ambientLight intensity={isDark ? 0.8 : 1.3} color={isDark ? '#ffffff' : '#f0f4f8'} />
+      {/* Adaptive ambient lighting - brightened for crisp nighttime visibility */}
+      <ambientLight intensity={isDark ? 1.6 : 1.8} color={isDark ? '#cbd5e1' : '#f8fafc'} />
 
       {/* Primary directional sun/moonlight */}
       <directionalLight
-        position={isDark ? [10, 20, 15] : [12, 28, 14]}
-        intensity={isDark ? 1.2 : 2.2}
-        color={isDark ? '#ffffff' : '#fff8ed'}
+        position={isDark ? [15, 25, 20] : [12, 28, 14]}
+        intensity={isDark ? 2.2 : 2.5}
+        color={isDark ? '#e2e8f0' : '#fff8ed'}
       />
 
-      {/* Subtle warm accent ground light */}
+      {/* Secondary fill light from opposite angle to reveal shadows */}
+      <directionalLight
+        position={isDark ? [-15, 18, -10] : [-12, 20, -10]}
+        intensity={isDark ? 1.4 : 1.0}
+        color={isDark ? '#93c5fd' : '#ffffff'}
+      />
+
+      {/* Warm architectural accent lights */}
       <pointLight
-        position={[-10, -5, -10]}
-        intensity={isDark ? 0.4 : 0.6}
-        color={isDark ? '#dfb76c' : '#ffd17a'}
+        position={[0, 4, 10]}
+        intensity={isDark ? 2.5 : 1.2}
+        color="#dfb76c"
+        distance={25}
+      />
+      <pointLight
+        position={[-10, 2, -5]}
+        intensity={isDark ? 1.5 : 0.8}
+        color={isDark ? '#38bdf8' : '#ffd17a'}
+        distance={20}
       />
 
       {mode === 'LANDING' && <LandingScene />}

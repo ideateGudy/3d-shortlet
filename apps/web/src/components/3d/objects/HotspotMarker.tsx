@@ -16,8 +16,13 @@ export function HotspotMarker({ hotspot, radius = 25, onClick }: HotspotMarkerPr
   const ringRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
 
+  // Guard against missing or malformed position data
+  if (!hotspot || !Array.isArray(hotspot.position) || hotspot.position.length < 3) {
+    return null;
+  }
+
   // Normalize position to specified sphere radius
-  const rawPos = new THREE.Vector3(...hotspot.position);
+  const rawPos = new THREE.Vector3(hotspot.position[0], hotspot.position[1], hotspot.position[2]);
   const pos = rawPos.normalize().multiplyScalar(radius);
 
   useFrame((state) => {

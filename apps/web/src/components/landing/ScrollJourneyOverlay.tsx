@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function ScrollJourneyOverlay() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const lenisRef = useRef<Lenis | null>(null);
   const [activeChapterIndex, setActiveChapterIndex] = useState(0);
   const [scrollPercent, setScrollPercent] = useState(0);
 
@@ -23,6 +24,7 @@ export function ScrollJourneyOverlay() {
       orientation: 'vertical',
       smoothWheel: true,
     });
+    lenisRef.current = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -60,13 +62,22 @@ export function ScrollJourneyOverlay() {
     };
   }, []);
 
+  const jumpToChapter = (chapterIdx: number) => {
+    if (!lenisRef.current || !containerRef.current) return;
+    const targetChapter = LANDING_CHAPTERS[chapterIdx];
+    if (!targetChapter) return;
+    const totalHeight = containerRef.current.scrollHeight - window.innerHeight;
+    const targetScrollY = targetChapter.startProgress * totalHeight;
+    lenisRef.current.scrollTo(targetScrollY, { duration: 1.4 });
+  };
+
   const activeChapter = LANDING_CHAPTERS[activeChapterIndex] || LANDING_CHAPTERS[0];
 
   return (
     <div ref={containerRef} className="relative w-full h-[500vh]">
       {/* Fixed Sticky HUD Overlay */}
       <div className="fixed inset-0 pointer-events-none flex flex-col justify-between p-8 sm:p-12 z-20">
-        {/* Top Progress Meter */}
+        {/* Top Progress Meter & Interactive Chapter Navigation */}
         <div className="flex items-center justify-between text-xs tracking-widest text-[var(--text-muted)] border-b border-black/10 dark:border-white/10 pb-3">
           <div className="flex items-center gap-3">
             <span className="text-brand-gold font-mono font-bold">
@@ -74,16 +85,19 @@ export function ScrollJourneyOverlay() {
             </span>
             <span>SPATIAL JOURNEY</span>
           </div>
-          <div className="hidden sm:flex items-center gap-4 text-[10px]">
+          <div className="hidden sm:flex items-center gap-2 pointer-events-auto">
             {LANDING_CHAPTERS.map((c, i) => (
-              <span
+              <button
                 key={c.id}
-                className={`transition-colors ${
-                  activeChapterIndex === i ? 'text-brand-gold font-bold' : 'text-black/30 dark:text-white/30'
+                onClick={() => jumpToChapter(i)}
+                className={`px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider transition-all ${
+                  activeChapterIndex === i
+                    ? 'bg-brand-gold text-black shadow-glow'
+                    : 'bg-black/5 dark:bg-white/10 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-black/10 dark:hover:bg-white/20'
                 }`}
               >
-                {c.tag}
-              </span>
+                {c.tag}: {c.title.split(' ')[0]}
+              </button>
             ))}
           </div>
         </div>
@@ -91,9 +105,22 @@ export function ScrollJourneyOverlay() {
         {/* Center Chapter Glass Card */}
         <div className="max-w-xl self-start pointer-events-auto transition-all duration-500 ease-out transform">
           <div className="glass-panel rounded-glass-lg p-6 sm:p-8 shadow-2xl backdrop-blur-2xl">
-            <span className="text-[11px] font-bold tracking-widest text-brand-gold uppercase">
-              {activeChapter.tag}
-            </span>
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-bold tracking-widest text-brand-gold uppercase">
+                {activeChapter.tag}
+              </span>
+              <div className="flex items-center gap-1.5">
+                {LANDING_CHAPTERS.map((_, i) => (
+                  <span
+                    key={`dot-${i}`}
+                    onClick={() => jumpToChapter(i)}
+                    className={`w-2 h-2 rounded-full cursor-pointer transition-all ${
+                      activeChapterIndex === i ? 'bg-brand-gold scale-125' : 'bg-black/20 dark:bg-white/30 hover:bg-brand-gold/60'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] mt-1.5 uppercase font-sans">
               {activeChapter.title}
             </h1>
@@ -101,23 +128,26 @@ export function ScrollJourneyOverlay() {
               {activeChapter.subtitle}
             </p>
 
-            {/* If on final chapter, CTA to explore properties */}
-            {activeChapter.id === 'gallery' ? (
-              <div className="mt-6 flex items-center gap-4">
-                <Link
-                  href="/properties"
-                  className="px-6 py-3 rounded-full bg-brand-gold text-black text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-glow flex items-center gap-2"
+            {/* Interactive Chapter Quick-Skip Actions */}
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              {activeChapterIndex < LANDING_CHAPTERS.length - 1 ? (
+                <button
+                  onClick={() => jumpToChapter(activeChapterIndex + 1)}
+                  className="px-5 py-2.5 rounded-full bg-black/10 dark:bg-white/10 hover:bg-brand-gold hover:text-black text-[var(--text-primary)] text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 border border-black/10 dark:border-white/10"
                 >
-                  <span>Enter 3D Gallery</span>
-                  <span>→</span>
-                </Link>
-              </div>
-            ) : (
-              <div className="mt-5 flex items-center gap-2 text-[11px] text-[var(--text-muted)] tracking-wider">
-                <span className="animate-bounce">↓</span>
-                <span>Scroll to travel through residence</span>
-              </div>
-            )}
+                  <span>Tour Next: {LANDING_CHAPTERS[activeChapterIndex + 1].title.toLowerCase()}</span>
+                  <span>↓</span>
+                </button>
+              ) : null}
+
+              <Link
+                href="/properties"
+                className="px-6 py-2.5 rounded-full bg-brand-gold text-black text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-glow flex items-center gap-2"
+              >
+                <span>Browse All Residences</span>
+                <span>→</span>
+              </Link>
+            </div>
           </div>
         </div>
 
