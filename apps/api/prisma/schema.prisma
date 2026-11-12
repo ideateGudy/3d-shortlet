@@ -39,27 +39,59 @@ model User {
 }
 
 model Property {
-  id            String            @id @default(uuid())
-  slug          String            @unique
-  title         String
-  tagLine       String
-  description   String
-  location      String
-  bedrooms      Int               @default(1)
-  bathrooms     Int               @default(1)
-  maxGuests     Int               @default(2)
-  pricePerNight Float
-  cleaningFee   Float             @default(0)
-  minNights     Int               @default(1)
-  maxNights     Int               @default(30)
-  rules         String?
-  isFeatured    Boolean           @default(false)
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
-  sections      PropertySection[]
-  amenities     Amenity[]
-  bookings      Booking[]
-  blockedDates  BlockedDate[]
+  id                   String            @id @default(uuid())
+  slug                 String            @unique
+  title                String
+  tagLine              String
+  description          String
+  location             String
+  city                 String            @default("")
+  neighborhood         String            @default("")
+  category             String            @default("LUXURY_APARTMENT")
+  bedrooms             Int               @default(1)
+  bathrooms            Int               @default(1)
+  maxGuests            Int               @default(2)
+  pricePerNight        Float
+  cleaningFee          Float             @default(0)
+  cautionDeposit       Float             @default(0)
+  serviceFeePercent    Float             @default(5)
+  minNights            Int               @default(1)
+  maxNights            Int               @default(30)
+  rules                String?
+  isFeatured           Boolean           @default(false)
+  has247Power          Boolean           @default(false)
+  hasSecurity          Boolean           @default(false)
+  hasPool              Boolean           @default(false)
+  hasChef              Boolean           @default(false)
+  hasWifi              Boolean           @default(true)
+  rating               Float             @default(4.9)
+  reviewCount          Int               @default(0)
+  hostName             String?
+  hostAvatar           String?
+  hostIsSuperhost      Boolean           @default(false)
+  hostResponseTime     String?
+  neighborhoodHighlights String[]
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  sections             PropertySection[]
+  amenities            Amenity[]
+  bookings             Booking[]
+  blockedDates         BlockedDate[]
+  reviews              Review[]
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  propertyId  String
+  property    Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  guestName   String
+  guestAvatar String?
+  rating      Float    @default(5)
+  comment     String
+  stayDate    String?
+  createdAt   DateTime @default(now())
+
+  @@index([propertyId])
 }
 
 model Amenity {

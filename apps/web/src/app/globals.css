@@ -113,3 +113,12 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--brand-gold);
 }
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

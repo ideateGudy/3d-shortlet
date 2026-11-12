@@ -7,8 +7,16 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useCameraStore } from '@/lib/store/useCameraStore';
 import { LANDING_CHAPTERS } from '@/lib/3d/curves';
+import { LodgrSearchHUD } from './LodgrSearchHUD';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const TRUST_BADGES = [
+  { icon: '🛡️', title: 'Verified Stays', desc: 'Every listing inspected & certified' },
+  { icon: '🔋', title: '24/7 Power', desc: 'Industrial generators & solar backup' },
+  { icon: '⚡', title: '15-Min Lock', desc: 'Instant reservation, zero double-booking' },
+  { icon: '🍸', title: '24/7 Concierge', desc: 'Dedicated host support around the clock' },
+];
 
 export function ScrollJourneyOverlay() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -72,18 +80,20 @@ export function ScrollJourneyOverlay() {
   };
 
   const activeChapter = LANDING_CHAPTERS[activeChapterIndex] || LANDING_CHAPTERS[0];
+  const isFirstChapter = activeChapterIndex === 0;
 
   return (
     <div ref={containerRef} className="relative w-full h-[500vh]">
       {/* Fixed Sticky HUD Overlay */}
-      <div className="fixed inset-0 pointer-events-none flex flex-col justify-between p-8 sm:p-12 z-20">
-        {/* Top Progress Meter & Interactive Chapter Navigation */}
+      <div className="fixed inset-0 pointer-events-none flex flex-col justify-between p-6 sm:p-10 z-20">
+
+        {/* Top Progress Meter & Chapter Nav */}
         <div className="flex items-center justify-between text-xs tracking-widest text-[var(--text-muted)] border-b border-black/10 dark:border-white/10 pb-3">
           <div className="flex items-center gap-3">
             <span className="text-brand-gold font-mono font-bold">
               {String(scrollPercent).padStart(2, '0')}%
             </span>
-            <span>SPATIAL JOURNEY</span>
+            <span className="hidden sm:block">LODGR 3D · SPATIAL JOURNEY</span>
           </div>
           <div className="hidden sm:flex items-center gap-2 pointer-events-auto">
             {LANDING_CHAPTERS.map((c, i) => (
@@ -102,10 +112,10 @@ export function ScrollJourneyOverlay() {
           </div>
         </div>
 
-        {/* Center Chapter Glass Card */}
-        <div className="max-w-xl self-start pointer-events-auto transition-all duration-500 ease-out transform">
+        {/* Center: Chapter Glass Card + SearchHUD (chapter 0 only) */}
+        <div className="max-w-2xl self-start pointer-events-auto transition-all duration-500 ease-out">
           <div className="glass-panel rounded-glass-lg p-6 sm:p-8 shadow-2xl backdrop-blur-2xl">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-1">
               <span className="text-[11px] font-bold tracking-widest text-brand-gold uppercase">
                 {activeChapter.tag}
               </span>
@@ -121,40 +131,62 @@ export function ScrollJourneyOverlay() {
                 ))}
               </div>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] mt-1.5 uppercase font-sans">
+
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] mt-1 uppercase font-sans">
               {activeChapter.title}
             </h1>
-            <p className="text-sm sm:text-base text-[var(--text-secondary)] mt-3 leading-relaxed">
+            <p className="text-sm text-[var(--text-secondary)] mt-2 leading-relaxed">
               {activeChapter.subtitle}
             </p>
 
-            {/* Interactive Chapter Quick-Skip Actions */}
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              {activeChapterIndex < LANDING_CHAPTERS.length - 1 ? (
+            {/* Search HUD on Chapter 1 */}
+            {isFirstChapter && <LodgrSearchHUD />}
+
+            {/* Actions */}
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              {activeChapterIndex < LANDING_CHAPTERS.length - 1 && (
                 <button
                   onClick={() => jumpToChapter(activeChapterIndex + 1)}
                   className="px-5 py-2.5 rounded-full bg-black/10 dark:bg-white/10 hover:bg-brand-gold hover:text-black text-[var(--text-primary)] text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 border border-black/10 dark:border-white/10"
                 >
-                  <span>Tour Next: {LANDING_CHAPTERS[activeChapterIndex + 1].title.toLowerCase()}</span>
+                  <span>Next: {LANDING_CHAPTERS[activeChapterIndex + 1].title.toLowerCase()}</span>
                   <span>↓</span>
                 </button>
-              ) : null}
+              )}
 
               <Link
                 href="/properties"
                 className="px-6 py-2.5 rounded-full bg-brand-gold text-black text-xs font-bold uppercase tracking-wider hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-glow flex items-center gap-2"
               >
-                <span>Browse All Residences</span>
+                <span>Browse All Stays</span>
                 <span>→</span>
               </Link>
             </div>
           </div>
+
+          {/* Trust Badges — below the chapter card */}
+          {isFirstChapter && (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
+              {TRUST_BADGES.map((b) => (
+                <div
+                  key={b.title}
+                  className="glass-panel rounded-xl px-3 py-2.5 flex items-start gap-2.5 border border-white/10 backdrop-blur-xl"
+                >
+                  <span className="text-lg leading-none mt-0.5">{b.icon}</span>
+                  <div>
+                    <div className="text-[11px] font-bold text-[var(--text-primary)]">{b.title}</div>
+                    <div className="text-[10px] text-[var(--text-muted)] leading-snug mt-0.5">{b.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Bottom Coordinates & Mode info */}
+        {/* Bottom Status Bar */}
         <div className="flex items-center justify-between text-[10px] tracking-widest text-[var(--text-muted)] border-t border-black/10 dark:border-white/10 pt-3">
-          <span>COORDINATES: 40.7580° N, 73.9855° W</span>
-          <span>CAMERA DIRECTOR: ACTIVE SCROLL-SCRUB</span>
+          <span>LODGR · VERIFIED LUXURY SHORTLETS</span>
+          <span>CAMERA DIRECTOR: SCROLL-SCRUB ACTIVE</span>
         </div>
       </div>
     </div>

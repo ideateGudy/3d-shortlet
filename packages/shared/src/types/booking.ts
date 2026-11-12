@@ -16,6 +16,7 @@ export interface Booking {
   nights: number;
   holdExpiresAt?: string | null;
   notes?: string | null;
+  referenceCode?: string;
   createdAt?: string;
   updatedAt?: string;
 }
