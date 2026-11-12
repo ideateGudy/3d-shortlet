@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { usePropertyViewStore } from '@/lib/store/usePropertyViewStore';
 import { SectionRail } from '@/components/ui/SectionRail';
 import { BookingModal } from '@/components/booking/BookingModal';
-import { useCurrencyStore } from '@/lib/store/useCurrencyStore';
+import { useCurrency } from '@/lib/hooks/useCurrency';
 import type { Property } from '@shortlet/shared';
 import { MapPin, Star, ChevronLeft, MessageCircle, Zap, Shield, Waves, ChefHat, Wifi } from 'lucide-react';
 
@@ -41,7 +41,7 @@ export default function PropertyDetailPage() {
 
   const activeSectionIndex = usePropertyViewStore((s) => s.activeSectionIndex);
   const setActiveSectionIndex = usePropertyViewStore((s) => s.setActiveSectionIndex);
-  const format = useCurrencyStore((s) => s.format);
+  const { format } = useCurrency();
 
   useEffect(() => {
     async function fetchProperty() {

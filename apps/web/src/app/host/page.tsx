@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useCurrencyStore } from '@/lib/store/useCurrencyStore';
+import { useCurrency } from '@/lib/hooks/useCurrency';
 import { Shield, Zap, Star, TrendingUp, Home, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const BENEFITS = [
@@ -36,7 +36,7 @@ const STEPS = [
 ];
 
 export default function HostPage() {
-  const format = useCurrencyStore((s) => s.format);
+  const { format } = useCurrency();
   const [nights, setNights] = useState(15);
   const [nightlyRate, setNightlyRate] = useState(300);
   const estimatedEarnings = nights * nightlyRate * 0.9; // 10% platform fee

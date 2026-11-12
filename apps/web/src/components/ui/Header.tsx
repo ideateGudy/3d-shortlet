@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useThemeStore } from '@/lib/store/useThemeStore';
-import { useCurrencyStore } from '@/lib/store/useCurrencyStore';
+import { useCurrency } from '@/lib/hooks/useCurrency';
 import { Sun, Moon, Home } from 'lucide-react';
 
 export function Header() {
@@ -12,8 +12,7 @@ export function Header() {
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+2348000000000';
   const theme = useThemeStore((s) => s.theme);
   const toggleTheme = useThemeStore((s) => s.toggleTheme);
-  const currency = useCurrencyStore((s) => s.currency);
-  const toggleCurrency = useCurrencyStore((s) => s.toggleCurrency);
+  const { currency, toggleCurrency, mounted: currencyMounted } = useCurrency();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useCurrencyStore } from '@/lib/store/useCurrencyStore';
+import { useCurrency } from '@/lib/hooks/useCurrency';
 import { Info } from 'lucide-react';
 
 interface PriceBreakdownProps {
@@ -19,7 +19,7 @@ export function PriceBreakdown({
   checkIn,
   checkOut,
 }: PriceBreakdownProps) {
-  const format = useCurrencyStore((s) => s.format);
+  const { format } = useCurrency();
 
   if (!checkIn || !checkOut) {
     return (

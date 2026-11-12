@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { MapPin, Users, Bed, Bath, ArrowRight, Search, Zap, ShieldCheck, Wifi, ChefHat, Waves } from 'lucide-react';
 import type { Property, PropertyCategory } from '@shortlet/shared';
 import { useCameraStore } from '@/lib/store/useCameraStore';
-import { useCurrencyStore } from '@/lib/store/useCurrencyStore';
+import { useCurrency } from '@/lib/hooks/useCurrency';
 
 const CITY_TABS = [
   { label: 'All Stays', value: '' },
@@ -54,8 +54,7 @@ function PropertiesContent() {
   const [bedroomFilter, setBedroomFilter] = useState(0);
   const [maxPrice, setMaxPrice] = useState(10000);
 
-  const format = useCurrencyStore((s) => s.format);
-  const currency = useCurrencyStore((s) => s.currency);
+  const { format, currency } = useCurrency();
 
   useEffect(() => {
     useCameraStore.getState().setMode('GALLERY');

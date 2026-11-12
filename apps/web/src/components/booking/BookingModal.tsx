@@ -7,7 +7,7 @@ import { GuestSelector } from './GuestSelector';
 import { PriceBreakdown } from './PriceBreakdown';
 import { WhatsAppFallbackButton } from './WhatsAppFallbackButton';
 import { useCameraStore } from '@/lib/store/useCameraStore';
-import { useCurrencyStore } from '@/lib/store/useCurrencyStore';
+import { useCurrency } from '@/lib/hooks/useCurrency';
 import { Clock, ShieldCheck, X, CreditCard, CheckCircle2 } from 'lucide-react';interface BookingModalProps {
   property: Property;
   isOpen: boolean;
@@ -46,7 +46,7 @@ export function BookingModal({ property, isOpen, onClose }: BookingModalProps) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const format = useCurrencyStore((s) => s.format);
+  const { format } = useCurrency();
 
   useEffect(() => {
     if (isOpen) {
