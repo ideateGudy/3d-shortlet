@@ -1,16 +1,18 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { v2 as cloudinary } from 'cloudinary';
 import * as fs from 'fs';
 import * as path from 'path';
 
 @Injectable()
 export class MediaService {
+  private readonly logger = new Logger(MediaService.name);
   private useCloudinary: boolean;
 
-  constructor() {
-    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-    const apiKey = process.env.CLOUDINARY_API_KEY;
-    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+  constructor(private readonly configService: ConfigService) {
+    const cloudName = this.configService.get<string>('CLOUDINARY_CLOUD_NAME') || process.env.CLOUDINARY_CLOUD_NAME;
+    const apiKey = this.configService.get<string>('CLOUDINARY_API_KEY') || process.env.CLOUDINARY_API_KEY;
+    const apiSecret = this.configService.get<string>('CLOUDINARY_API_SECRET') || process.env.CLOUDINARY_API_SECRET;
 
     if (cloudName && apiKey && apiSecret) {
       cloudinary.config({
@@ -19,8 +21,10 @@ export class MediaService {
         api_secret: apiSecret,
       });
       this.useCloudinary = true;
+      this.logger.log(`✓ Cloudinary activated for cloud: ${cloudName}`);
     } else {
       this.useCloudinary = false;
+      this.logger.warn('Cloudinary credentials missing; falling back to local disk storage');
       // Ensure local uploads directory exists
       const uploadDir = path.resolve(__dirname, '..', '..', 'uploads');
       if (!fs.existsSync(uploadDir)) {
@@ -29,7 +33,7 @@ export class MediaService {
     }
   }
 
-  async uploadFile(file: Express.Multer.File): Promise<{ url: string }> {
+  async uploadFile(file: Express.Multer.File): Promise<{ url: string; provider: 'cloudinary' | 'local' }> {
     if (!file) {
       throw new BadRequestException('No file provided');
     }
@@ -43,9 +47,11 @@ export class MediaService {
           },
           (error, result) => {
             if (error || !result) {
+              this.logger.error(`Cloudinary upload failed: ${error?.message}`);
               return reject(new BadRequestException(error?.message || 'Cloudinary upload failed'));
             }
-            resolve({ url: result.secure_url });
+            this.logger.log(`✓ File uploaded to Cloudinary: ${result.secure_url}`);
+            resolve({ url: result.secure_url, provider: 'cloudinary' });
           }
         );
         uploadStream.end(file.buffer);
@@ -66,6 +72,7 @@ export class MediaService {
 
     return {
       url: `/uploads/${filename}`,
+      provider: 'local',
     };
   }
 }

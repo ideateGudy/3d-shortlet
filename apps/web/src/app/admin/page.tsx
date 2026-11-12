@@ -6,6 +6,7 @@ import type { Property, PropertySection, Booking, BlockedDate, Hotspot } from '@
 import { VisualHotspotEditor } from '@/components/admin/VisualHotspotEditor';
 import { PropertyFormModal } from '@/components/admin/PropertyFormModal';
 import { SectionCreateModal } from '@/components/admin/SectionCreateModal';
+import { SectionEditModal } from '@/components/admin/SectionEditModal';
 import { Plus, Pencil, Trash2, Building2, Layers } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -24,8 +25,10 @@ export default function AdminDashboardPage() {
   const [isPropertyModalOpen, setIsPropertyModalOpen] = useState(false);
   const [propertyToEdit, setPropertyToEdit] = useState<Property | null>(null);
 
-  // Section CRUD Modal State
+  // Section CRUD Modal States
   const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
+  const [isSectionEditModalOpen, setIsSectionEditModalOpen] = useState(false);
+  const [sectionToEdit, setSectionToEdit] = useState<PropertySection | null>(null);
 
   // New Block Form
   const [blockPropId, setBlockPropId] = useState('');
@@ -344,31 +347,56 @@ export default function AdminDashboardPage() {
                   </button>
                 </div>
                 <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1">
-                  {selectedProperty.sections?.map((sec) => (
-                    <div
-                      key={sec.id}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-all ${
-                        selectedSection?.id === sec.id
-                          ? 'bg-black/10 dark:bg-white/20 text-[var(--text-primary)] font-medium border border-black/20 dark:border-white/30'
-                          : 'bg-black/5 dark:bg-white/5 text-[var(--text-secondary)] hover:bg-black/10 dark:hover:bg-white/10'
-                      }`}
-                    >
-                      <button
-                        onClick={() => setSelectedSection(sec)}
-                        className="flex items-center gap-2 text-left flex-1"
+                  {selectedProperty.sections?.map((sec) => {
+                    const isCloudinary = sec.imageUrl.includes('cloudinary.com');
+
+                    return (
+                      <div
+                        key={sec.id}
+                        className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition-all ${
+                          selectedSection?.id === sec.id
+                            ? 'bg-black/10 dark:bg-white/20 text-[var(--text-primary)] font-medium border border-black/20 dark:border-white/30'
+                            : 'bg-black/5 dark:bg-white/5 text-[var(--text-secondary)] hover:bg-black/10 dark:hover:bg-white/10'
+                        }`}
                       >
-                        <span>{sec.name}</span>
-                        <span className="text-[10px] text-brand-gold font-mono">{sec.type}</span>
-                      </button>
-                      <button
-                        onClick={() => handleDeleteSection(sec.id, sec.name)}
-                        title="Delete Section"
-                        className="p-1 hover:text-red-400 text-[var(--text-secondary)] transition-colors"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ))}
+                        <button
+                          onClick={() => setSelectedSection(sec)}
+                          className="flex items-center gap-2 text-left flex-1 min-w-0"
+                        >
+                          <span className="truncate">{sec.name}</span>
+                          <span className="text-[10px] text-brand-gold font-mono shrink-0">{sec.type}</span>
+                          {isCloudinary ? (
+                            <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 text-[9px] font-bold shrink-0">
+                              ☁ CDN
+                            </span>
+                          ) : (
+                            <span className="px-1.5 py-0.2 rounded bg-black/10 dark:bg-white/10 text-[var(--text-secondary)] text-[9px] font-mono shrink-0">
+                              Local
+                            </span>
+                          )}
+                        </button>
+                        <div className="flex items-center gap-1 shrink-0 ml-2">
+                          <button
+                            onClick={() => {
+                              setSectionToEdit(sec);
+                              setIsSectionEditModalOpen(true);
+                            }}
+                            title="Edit Room / Replace Image"
+                            className="p-1 hover:text-brand-gold text-[var(--text-secondary)] transition-colors"
+                          >
+                            <Pencil className="w-3 h-3" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteSection(sec.id, sec.name)}
+                            title="Delete Section"
+                            className="p-1 hover:text-red-400 text-[var(--text-secondary)] transition-colors"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
                   {(!selectedProperty.sections || selectedProperty.sections.length === 0) && (
                     <div className="text-[11px] text-[var(--text-secondary)] p-2 text-center">
                       No rooms added yet. Click &quot;Add Room&quot; above to create a 360° panorama room.
@@ -587,6 +615,20 @@ export default function AdminDashboardPage() {
           onClose={() => setIsSectionModalOpen(false)}
           onSuccess={loadData}
           existingSectionsCount={selectedProperty.sections?.length || 0}
+        />
+      )}
+
+      {/* Section Edit Modal */}
+      {selectedProperty && (
+        <SectionEditModal
+          propertyId={selectedProperty.id}
+          section={sectionToEdit}
+          isOpen={isSectionEditModalOpen}
+          onClose={() => {
+            setIsSectionEditModalOpen(false);
+            setSectionToEdit(null);
+          }}
+          onSuccess={loadData}
         />
       )}
     </div>
